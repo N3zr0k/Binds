@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.11-beta.1
+- Release workflow: packager now runs with the new tag as ref, so it no longer skips the build ("Found future tag"); clear error if no ZIP was created.
+- New README and CurseForge header graphics with the new logo (Binds_Header_Light/Dark_NewLogo_1920x480, PNG + SVG); old Compact headers removed.
+- Minimap icon enlarged from 13 to 18 px.
+
+## 0.1.10-beta.1
+- The dark Binds icon (dark cursor) is now used everywhere: minimap, TOC, options list, tooltip header and addon list.
+
 ## 0.1.9-beta.1
 - Fixed: error "attempt to perform arithmetic on a secret number value" (WoW Forever) in the tooltip header line.
 - New Binds icon (B with cursor) in 128, 64 and 32 px for minimap, TOC, options list and tooltip header; dark variant added as Media/Binds_Icon_dunkel_*.

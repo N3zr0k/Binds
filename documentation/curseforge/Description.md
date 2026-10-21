@@ -1,4 +1,4 @@
-![Binds – Keyboard, Mouse, Click-Cast](https://raw.githubusercontent.com/N3zr0k/Binds/main/documentation/assets/Binds_Header_Dark_Compact_1920x480.png)
+![Binds – Keyboard, Mouse, Click-Cast](https://raw.githubusercontent.com/N3zr0k/Binds/main/documentation/assets/Binds_Header_Dark_NewLogo_1920x480.png)
 
 [![Version](https://img.shields.io/github/v/release/N3zr0k/Binds?include_prereleases&label=Version&color=CBB9A5&labelColor=72645C&style=flat-square)](https://github.com/N3zr0k/Binds/releases)
 ![WoW Retail](https://img.shields.io/badge/WoW%20Retail-12.1.5-CBB9A5?labelColor=72645C&style=flat-square)

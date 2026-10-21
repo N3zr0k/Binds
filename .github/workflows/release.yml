@@ -47,14 +47,17 @@ jobs:
           git tag "${{ steps.version.outputs.version }}"
           git push origin "${{ steps.version.outputs.version }}"
 
+      # The packager skips push builds whose HEAD already carries a tag ("Found future tag ... not packaging"),
+      # because it expects a second run for the tag push. Tags pushed with GITHUB_TOKEN start no new run, so
+      # the script runs here directly with the tag as ref.
       # Alpha builds never go to CurseForge: the API key is only passed for beta and release.
       - name: Package (and upload to CurseForge)
         if: steps.version.outputs.new == 'true'
-        uses: BigWigsMods/packager@v2
-        with:
-          args: -n "{package-name}-{project-version}"
         env:
           CF_API_KEY: ${{ steps.version.outputs.stage != 'alpha' && secrets.CF_API_KEY || '' }}
+        run: |
+          curl -fsSL https://raw.githubusercontent.com/BigWigsMods/packager/v2/release.sh -o "$RUNNER_TEMP/release.sh"
+          GITHUB_REF="refs/tags/${{ steps.version.outputs.version }}" bash "$RUNNER_TEMP/release.sh" -n "{package-name}-{project-version}"
 
       - name: GitHub release
         if: steps.version.outputs.new == 'true'
@@ -62,6 +65,14 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           version="${{ steps.version.outputs.version }}"
+          # Fail with a readable message instead of gh's "no matches found" when the packager produced nothing.
+          shopt -s nullglob
+          zips=(.release/*.zip)
+          if [ ${#zips[@]} -eq 0 ]; then
+            echo "::error::Packager created no ZIP in .release/. Contents:"
+            ls -la .release || true
+            exit 1
+          fi
           case "${{ steps.version.outputs.stage }}" in
             alpha) gh release create "$version" .release/*.zip --title "$version" --prerelease --notes-file CHANGELOG.md ;;
             beta)  gh release create "$version" .release/*.zip --title "$version (Beta)" --notes-file CHANGELOG.md ;;

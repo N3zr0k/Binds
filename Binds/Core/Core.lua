@@ -121,7 +121,7 @@ end
 -- "Binds" header line for tooltips: icon, name and a divider up to the right edge, like the option sections.
 -- One divider per tooltip, hidden again when the tooltip is cleared or hidden.
 function Binds:AddTooltipHeader(tooltip)
-	tooltip:AddLine(self:Texture("Binds_Icon_32x32", 0) .. " " .. self:Colorize(self.title, "primary"))
+	tooltip:AddLine(self:Texture("Binds_Icon_dunkel_32x32", 0) .. " " .. self:Colorize(self.title, "primary"))
 	local name = tooltip.GetName and tooltip:GetName()
 	local text = name and _G[name .. "TextLeft" .. tooltip:NumLines()]
 	if not text then

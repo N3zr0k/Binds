@@ -110,7 +110,7 @@ end
 ----------------------------------------------------------------------
 
 -- Icon and color in the category list, like other addons show there. Plain title stays for headers and chat.
-local mainPanel = CreatePanel(Binds:Texture("Binds_Icon_32x32", 0) .. " " .. Binds:Colorize(Binds.title, "primary"))
+local mainPanel = CreatePanel(Binds:Texture("Binds_Icon_dunkel_32x32", 0) .. " " .. Binds:Colorize(Binds.title, "primary"))
 
 do
 	local logo = mainPanel:CreateTexture(nil, "ARTWORK")

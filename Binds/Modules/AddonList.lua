@@ -5,7 +5,7 @@ local Binds = ns.Binds
 -- title at display time instead of in the TOC, so Retail never shows it twice. Only text is changed.
 local AddonList = Binds:RegisterModule("AddonList")
 
-local ICON = Binds:Texture("Binds_Icon_32x32", 0) .. " "
+local ICON = Binds:Texture("Binds_Icon_dunkel_32x32", 0) .. " "
 
 local function Decorate(titleText)
 	if not titleText or not titleText.GetText then

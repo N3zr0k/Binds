@@ -8,9 +8,9 @@ local Broker = Binds:RegisterModule("Broker")
 local LDB = LibStub and LibStub("LibDataBroker-1.1", true)
 local LDBIcon = LibStub and LibStub("LibDBIcon-1.0", true)
 
-local ICON = "Interface\\AddOns\\Binds\\Media\\Binds_Icon_64x64"
--- LibDBIcon draws icons at 18px; the Binds logo reads better a bit smaller inside the round border.
-local MINIMAP_ICON_SIZE = 13
+local ICON = "Interface\\AddOns\\Binds\\Media\\Binds_Icon_dunkel_64x64"
+-- Icon size inside the round minimap border (Sven: 18 px, LibDBIcon's default size).
+local MINIMAP_ICON_SIZE = 18
 
 ----------------------------------------------------------------------
 -- Shortcuts

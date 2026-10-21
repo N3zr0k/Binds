@@ -1,4 +1,4 @@
-![Binds – Tastatur, Maus, Klickzauber](documentation/assets/Binds_Header_Light_Compact_1920x480.png)
+![Binds – Tastatur, Maus, Klickzauber](documentation/assets/Binds_Header_Light_NewLogo_1920x480.png)
 
 [![Version](https://img.shields.io/github/v/release/N3zr0k/Binds?include_prereleases&label=Version&color=CBB9A5&labelColor=72645C&style=flat-square)](https://github.com/N3zr0k/Binds/releases)
 [![Lint](https://img.shields.io/github/actions/workflow/status/N3zr0k/Binds/lint.yml?label=Lint&color=CBB9A5&labelColor=72645C&style=flat-square)](https://github.com/N3zr0k/Binds/actions/workflows/lint.yml)
@@ -14,7 +14,7 @@
 
 Binds **liest** Belegungen nur aus dem Spiel und **ändert** nichts: keine Tastenbelegungen, keine Makros, keine Aktionsleisten.
 
-> Status: `0.1.9-beta.1` – Beta. Belegungen werden aus Aktionsleisten, Haltungsleiste, direkt belegten Makros und Klickzaubern gelesen; Ingame-Test läuft.
+> Status: `0.1.11-beta.1` – Beta. Belegungen werden aus Aktionsleisten, Haltungsleiste, direkt belegten Makros und Klickzaubern gelesen; Ingame-Test läuft.
 
 ## Funktionen
 
