@@ -23,6 +23,9 @@ ns.Locales.frFR = {
 	-- Options layout
 	GENERAL_SUBTITLE = "Les réglages s'appliquent à tous les personnages du compte.",
 	SECTION_TOOLTIP = "Infobulle",
+	SECTION_CLICKCAST = "Sorts au clic",
+	OPT_MOUSEOVER = "Sorts « mouseover » dans le monde",
+	OPT_MOUSEOVER_DESC = "Les sorts au clic avec modificateur (p. ex. Maj + clic droit) fonctionnent aussi sur les unités du monde, en mouseover. Les réglages restent ceux de Blizzard. Les clics simples ne sont pas affectés ; les changements s’appliquent hors combat.",
 	SECTION_MINIMAP = "Minicarte et Titan Panel",
 	SECTION_DEVELOPER = "Développeur",
 	OPT_SHOW_TOOLTIP_DESC = "Ajoute une section Binds aux infobulles des sorts, objets et macros.",

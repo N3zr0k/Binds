@@ -210,10 +210,17 @@ do
 		end
 	end)
 
+	-- Click casting
+	local clickSection = CreateSection(panel, modifierChecks[1], L.SECTION_CLICKCAST)
+	clickSection:ClearAllPoints()
+	clickSection:SetPoint("TOPLEFT", modifierChecks[1], "BOTTOMLEFT", -30, -SECTION_GAP)
+
+	local _, afterMouseover = CreateCheckbox(panel, clickSection, L.OPT_MOUSEOVER, L.OPT_MOUSEOVER_DESC,
+		function() return Binds.db.mouseoverCasts end,
+		function(value) Binds.db.mouseoverCasts = value end)
+
 	-- Minimap
-	local minimapSection = CreateSection(panel, modifierChecks[1], L.SECTION_MINIMAP)
-	minimapSection:ClearAllPoints()
-	minimapSection:SetPoint("TOPLEFT", modifierChecks[1], "BOTTOMLEFT", -30, -SECTION_GAP)
+	local minimapSection = CreateSection(panel, afterMouseover, L.SECTION_MINIMAP)
 
 	local _, afterMinimap = CreateCheckbox(panel, minimapSection, L.OPT_MINIMAP, L.OPT_MINIMAP_DESC,
 		function() return not Binds.db.minimap.hide end,

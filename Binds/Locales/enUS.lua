@@ -24,6 +24,9 @@ ns.Locales.enUS = {
 	-- Options layout
 	GENERAL_SUBTITLE = "Settings apply to all characters on this account.",
 	SECTION_TOOLTIP = "Tooltip",
+	SECTION_CLICKCAST = "Click casting",
+	OPT_MOUSEOVER = "Mouseover casts in the world",
+	OPT_MOUSEOVER_DESC = "Click casts with a modifier (e.g. Shift + right click) also work on units in the game world, as mouseover casts. The setup stays the one from Blizzard. Plain clicks are not affected; changes apply out of combat.",
 	SECTION_MINIMAP = "Minimap & Titan Panel",
 	SECTION_DEVELOPER = "Developer",
 	OPT_SHOW_TOOLTIP_DESC = "Adds a Binds section to spell, item and macro tooltips.",

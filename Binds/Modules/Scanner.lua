@@ -449,6 +449,36 @@ function Scanner:GetClickCasts()
 	return casts
 end
 
+-- Binding keys in WoW's canonical modifier order, for the optional world mouseover module.
+local KEY_MODIFIER_ORDER = { "ALT", "CTRL", "SHIFT", "META" }
+
+-- Raw entries { key = "SHIFT-BUTTON2", type = <ClickBindingType>, actionID = n }; only entries with a modifier.
+function Scanner:GetClickCastKeys()
+	local entries = {}
+	if not self:IsClickCastingAvailable() then
+		return entries
+	end
+	for _, info in ipairs(C_ClickBindings.GetProfileInfo() or {}) do
+		local base = CLICK_BUTTON_KEYS[Clean(info.button)]
+		local modifiers = ClickModifiers(info.modifiers)
+		local prefix = {}
+		for _, modifier in ipairs(KEY_MODIFIER_ORDER) do
+			if modifiers[modifier] then
+				table.insert(prefix, modifier)
+			end
+		end
+		-- Plain clicks stay untouched: they are camera and targeting in the world.
+		if base and #prefix > 0 then
+			table.insert(entries, {
+				key = table.concat(prefix, "-") .. "-" .. base,
+				type = Clean(info.type),
+				actionID = Clean(info.actionID),
+			})
+		end
+	end
+	return entries
+end
+
 -- Only spell click casts belong to a spell tooltip; target/menu interactions have no tooltip of their own.
 function Scanner:CollectClickBindings(result)
 	if not self:IsClickCastingAvailable() then

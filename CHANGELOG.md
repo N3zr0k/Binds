@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.14-beta.1
+- Fixed: mouseover casts did nothing because the secure button only listened for the button release; it now registers both directions.
+
+## 0.1.13-beta.1
+- New optional module "Mouseover casts in the world" (Options > General > Click casting, off by default): Blizzard click casts with a modifier also work as mouseover casts on units in the game world. Plain clicks stay untouched; bindings are applied out of combat.
+
 ## 0.1.12-beta.1
 - License changed from MIT to All rights reserved (LICENSE, TOC, README, CurseForge badges).
 - TOC: CurseForge project ID 1757598 added, so the release workflow uploads beta and release builds to CurseForge.

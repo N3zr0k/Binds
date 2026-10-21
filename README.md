@@ -12,9 +12,9 @@
 
 **Binds** zeigt dir direkt im Tooltip, wie du einen Zauber, Gegenstand oder ein Makro auslöst: über welche Taste, welche Maustaste oder welche Klickzauber-Kombination. Kein Suchen mehr in Aktionsleisten, Makrofenster oder Tastaturbelegung.
 
-Binds **liest** Belegungen nur aus dem Spiel und **ändert** nichts: keine Tastenbelegungen, keine Makros, keine Aktionsleisten.
+Binds **liest** Belegungen nur aus dem Spiel und **ändert** nichts: keine Tastenbelegungen, keine Makros, keine Aktionsleisten. Einzige Ausnahme ist die optionale Mouseover-Funktion für Klickzauber (standardmäßig aus, siehe unten).
 
-> Status: `0.1.12-beta.1` – Beta. Belegungen werden aus Aktionsleisten, Haltungsleiste, direkt belegten Makros und Klickzaubern gelesen; Ingame-Test läuft.
+> Status: `0.1.14-beta.1` – Beta. Belegungen werden aus Aktionsleisten, Haltungsleiste, direkt belegten Makros und Klickzaubern gelesen; Ingame-Test läuft.
 
 ## Funktionen
 
@@ -26,6 +26,7 @@ Binds **liest** Belegungen nur aus dem Spiel und **ändert** nichts: keine Taste
 - **Datenquellen:** Aktionsleisten, Gestalt-/Haltungsleiste, direkt belegte Makros, Blizzard-Klickzauber. Kein weiteres Addon nötig.
 - **Automatische Aktualisierung**, sobald sich Belegungen, Makros, Leisten oder die Gestalt ändern.
 - **Optionaler Modifikator-Filter:** Abschnitt nur anzeigen, solange Umschalt, Strg und/oder Alt gedrückt ist.
+- **Optional: Mouseover-Zauber in der Spielwelt** (standardmäßig aus): Blizzard-Klickzauber mit Modifikator, z. B. Umschalt + Rechtsklick, wirken auch auf Einheiten in der Spielwelt. Das Click-Casting-Profil selbst bleibt unverändert, einfache Klicks bleiben unberührt, Änderungen greifen außerhalb des Kampfes.
 - **Titan Panel, Minimap-Symbol und Addon-Compartment:**
   - Rechtsklick: Binds-Optionen
   - Umschalt + Linksklick: Klickzauber-Einstellungen

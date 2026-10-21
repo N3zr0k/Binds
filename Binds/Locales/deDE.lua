@@ -23,6 +23,9 @@ ns.Locales.deDE = {
 	-- Options layout
 	GENERAL_SUBTITLE = "Die Einstellungen gelten für alle Charaktere dieses Kontos.",
 	SECTION_TOOLTIP = "Tooltip",
+	SECTION_CLICKCAST = "Klickzauber",
+	OPT_MOUSEOVER = "Mouseover-Zauber in der Spielwelt",
+	OPT_MOUSEOVER_DESC = "Klickzauber mit Modifikator (z. B. Umschalt + Rechtsklick) wirken auch auf Einheiten in der Spielwelt, als Mouseover-Zauber. Die Einstellungen bleiben die von Blizzard. Einfache Klicks bleiben unberührt; Änderungen gelten außerhalb des Kampfes.",
 	SECTION_MINIMAP = "Minimap & Titan Panel",
 	SECTION_DEVELOPER = "Entwickler",
 	OPT_SHOW_TOOLTIP_DESC = "Fügt Zauber-, Gegenstands- und Makro-Tooltips einen Binds-Abschnitt hinzu.",

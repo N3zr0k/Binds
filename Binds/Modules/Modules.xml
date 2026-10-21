@@ -2,6 +2,7 @@
 	<Script file="Scanner.lua"/>
 	<Script file="Tooltip.lua"/>
 	<Script file="Broker.lua"/>
+	<Script file="MouseoverCast.lua"/>
 	<Script file="AddonList.lua"/>
 	<Script file="Probes.lua"/>
 </Ui>
