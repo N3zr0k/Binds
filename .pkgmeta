@@ -1,0 +1,15 @@
+package-as: Binds
+
+# The addon lives in a subfolder; the package contains only that folder.
+move-folders:
+  Binds/Binds: Binds
+
+ignore:
+  - .github
+  - documentation
+  - README.md
+  - CHANGELOG.md
+  - BUGFIX.md
+  - CLAUDE.md
+  - .luacheckrc
+  - .gitignore

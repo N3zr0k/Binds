@@ -1,0 +1,7 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file="Scanner.lua"/>
+	<Script file="Tooltip.lua"/>
+	<Script file="Broker.lua"/>
+	<Script file="AddonList.lua"/>
+	<Script file="Probes.lua"/>
+</Ui>

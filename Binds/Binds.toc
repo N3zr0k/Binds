@@ -1,0 +1,17 @@
+## Interface: 120105, 120107, 16001
+## Title: |cffCBB9A5Binds|r
+## Notes: Shows keyboard, mouse and click-cast bindings in spell, item and macro tooltips.
+## Notes-deDE: Zeigt Tastatur-, Maus- und Klickzauber-Belegungen in Zauber-, Gegenstands- und Makro-Tooltips.
+## Notes-frFR: Affiche les raccourcis clavier, souris et clic dans les infobulles des sorts, objets et macros.
+## Author: N3zr0k
+## Version: 0.1.9-beta.1
+## IconTexture: Interface\AddOns\Binds\Media\Binds_Icon_64x64
+## X-License: MIT
+## X-Website: https://github.com/N3zr0k/Binds
+## OptionalDeps: BugLab
+## SavedVariables: BindsDB
+## AddonCompartmentFunc: Binds_OnAddonCompartmentClick
+## AddonCompartmentFuncOnEnter: Binds_OnAddonCompartmentEnter
+## AddonCompartmentFuncOnLeave: Binds_OnAddonCompartmentLeave
+
+Binds.xml

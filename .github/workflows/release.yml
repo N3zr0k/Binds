@@ -1,0 +1,69 @@
+name: Release
+
+# Releases are driven by the TOC version: a version without a tag is a new release.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Read version from TOC
+        id: version
+        run: |
+          version=$(grep -m1 '^## Version:' Binds/Binds.toc | sed 's/^## Version:[[:space:]]*//' | tr -d '\r')
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          if git rev-parse -q --verify "refs/tags/$version" >/dev/null; then
+            echo "new=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "new=true" >> "$GITHUB_OUTPUT"
+          fi
+          case "$version" in
+            *-alpha.*) echo "stage=alpha" >> "$GITHUB_OUTPUT" ;;
+            *-beta.*)  echo "stage=beta"  >> "$GITHUB_OUTPUT" ;;
+            *)         echo "stage=release" >> "$GITHUB_OUTPUT" ;;
+          esac
+
+      - name: Lint
+        if: steps.version.outputs.new == 'true'
+        uses: lunarmodules/luacheck@v1
+        with:
+          args: .
+
+      - name: Create tag
+        if: steps.version.outputs.new == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git tag "${{ steps.version.outputs.version }}"
+          git push origin "${{ steps.version.outputs.version }}"
+
+      # Alpha builds never go to CurseForge: the API key is only passed for beta and release.
+      - name: Package (and upload to CurseForge)
+        if: steps.version.outputs.new == 'true'
+        uses: BigWigsMods/packager@v2
+        with:
+          args: -n "{package-name}-{project-version}"
+        env:
+          CF_API_KEY: ${{ steps.version.outputs.stage != 'alpha' && secrets.CF_API_KEY || '' }}
+
+      - name: GitHub release
+        if: steps.version.outputs.new == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          version="${{ steps.version.outputs.version }}"
+          case "${{ steps.version.outputs.stage }}" in
+            alpha) gh release create "$version" .release/*.zip --title "$version" --prerelease --notes-file CHANGELOG.md ;;
+            beta)  gh release create "$version" .release/*.zip --title "$version (Beta)" --notes-file CHANGELOG.md ;;
+            *)     gh release create "$version" .release/*.zip --title "$version" --notes-file CHANGELOG.md ;;
+          esac
