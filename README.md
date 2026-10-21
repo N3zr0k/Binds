@@ -6,7 +6,7 @@
 ![WoW Forever](https://img.shields.io/badge/WoW%20Forever-16001-CBB9A5?labelColor=72645C&style=flat-square)
 ![Sprachen](https://img.shields.io/badge/Sprachen-deDE%20%7C%20enUS%20%7C%20frFR-E6D2B9?labelColor=72645C&style=flat-square)
 ![Abhängigkeiten](https://img.shields.io/badge/Abh%C3%A4ngigkeiten-keine-E6D2B9?labelColor=72645C&style=flat-square)
-[![Lizenz](https://img.shields.io/badge/Lizenz-MIT-ADA09A?labelColor=72645C&style=flat-square)](LICENSE)
+[![Lizenz](https://img.shields.io/badge/Lizenz-All%20rights%20reserved-ADA09A?labelColor=72645C&style=flat-square)](LICENSE)
 
 # Binds
 
@@ -14,7 +14,7 @@
 
 Binds **liest** Belegungen nur aus dem Spiel und **ändert** nichts: keine Tastenbelegungen, keine Makros, keine Aktionsleisten.
 
-> Status: `0.1.11-beta.1` – Beta. Belegungen werden aus Aktionsleisten, Haltungsleiste, direkt belegten Makros und Klickzaubern gelesen; Ingame-Test läuft.
+> Status: `0.1.12-beta.1` – Beta. Belegungen werden aus Aktionsleisten, Haltungsleiste, direkt belegten Makros und Klickzaubern gelesen; Ingame-Test läuft.
 
 ## Funktionen
 
@@ -85,7 +85,7 @@ Aufbau, Modulsystem und API: [documentation/DEVELOPER.md](documentation/DEVELOPE
 
 ## Lizenz und Danksagung
 
-MIT, siehe [LICENSE](LICENSE).
+© 2026 N3zr0k – All rights reserved. Kopieren, Verändern oder Weiterverbreiten nur mit Erlaubnis des Autors, siehe [LICENSE](LICENSE).
 
 - Symbole basieren auf [Lucide](https://lucide.dev) (ISC-Lizenz); SVG-Quellen unter `documentation/assets/icons/`.
 - Eingebundene Libraries: LibStub (Public Domain), CallbackHandler-1.0, LibDataBroker-1.1, LibDBIcon-1.0 – jeweils unter ihren eigenen Lizenzen.

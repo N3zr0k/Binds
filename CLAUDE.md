@@ -43,7 +43,7 @@ Diese Datei gibt Claude Code Orientierung für die Arbeit in diesem Repository.
     - `<DEVELOPER.md>` – Entwickler-Doku im Ordner Docs/
     - `<API.md>` – API-Doku im Ordner Docs/
 - `documentation/assets/` – Ordner für Artwork, welches auf CurseForge, als Vorlage für TGAs oder in der ReadMe verwendet wird.
-- `LICENSE` – MIT Lizenz
+- `LICENSE` – All rights reserved (N3zr0k)
 - `.pkgmeta` 
 
 ## Versionierung & Dateien

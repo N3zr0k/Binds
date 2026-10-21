@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.12-beta.1
+- License changed from MIT to All rights reserved (LICENSE, TOC, README, CurseForge badges).
+- TOC: CurseForge project ID 1757598 added, so the release workflow uploads beta and release builds to CurseForge.
+
 ## 0.1.11-beta.1
 - Release workflow: packager now runs with the new tag as ref, so it no longer skips the build ("Found future tag"); clear error if no ZIP was created.
 - New README and CurseForge header graphics with the new logo (Binds_Header_Light/Dark_NewLogo_1920x480, PNG + SVG); old Compact headers removed.

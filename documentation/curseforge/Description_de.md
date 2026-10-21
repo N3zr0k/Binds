@@ -5,7 +5,7 @@
 ![WoW Forever](https://img.shields.io/badge/WoW%20Forever-16001-CBB9A5?labelColor=72645C&style=flat-square)
 ![Sprachen](https://img.shields.io/badge/Sprachen-deDE%20%7C%20enUS%20%7C%20frFR-E6D2B9?labelColor=72645C&style=flat-square)
 ![Abhängigkeiten](https://img.shields.io/badge/Abh%C3%A4ngigkeiten-keine-E6D2B9?labelColor=72645C&style=flat-square)
-[![Lizenz](https://img.shields.io/badge/Lizenz-MIT-ADA09A?labelColor=72645C&style=flat-square)](https://github.com/N3zr0k/Binds/blob/main/LICENSE)
+[![Lizenz](https://img.shields.io/badge/Lizenz-All%20rights%20reserved-ADA09A?labelColor=72645C&style=flat-square)](https://github.com/N3zr0k/Binds/blob/main/LICENSE)
 
 ### Auf welcher Taste lag der Zauber noch mal?
 
