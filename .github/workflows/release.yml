@@ -30,6 +30,7 @@ jobs:
           case "$version" in
             *-alpha.*) echo "stage=alpha" >> "$GITHUB_OUTPUT" ;;
             *-beta.*)  echo "stage=beta"  >> "$GITHUB_OUTPUT" ;;
+            # "-latest.N" is the stable stage: handled like a plain release (no label, CurseForge type Release).
             *)         echo "stage=release" >> "$GITHUB_OUTPUT" ;;
           esac
 

@@ -52,7 +52,7 @@ Diese Datei gibt Claude Code Orientierung für die Arbeit in diesem Repository.
 - `x` → Major (wird nur von mir freigegeben und angesagt)
 - `y` → Minor (wird nur von mir freigegeben und angesagt)
 - `z` → Fix (zählt mit jedem neuen Repo Zip hoch, wenn sich am Addon Game Ordner etwas ändert)
-- `alpha` → alpha, beta (wird nur von mir freigegeben und angesagt)
+- `alpha` → alpha, beta, latest (wird nur von mir freigegeben und angesagt)
 - `N` → Repo (zählt mit jedem neuen Repo Zip hoch, wenn sich am Repo Ordner etwas ändert, GameOrdner ist ausgenommen)
 
 ## Befehle / Release
@@ -61,6 +61,7 @@ Diese Datei gibt Claude Code Orientierung für die Arbeit in diesem Repository.
 - Release-Stufe ergibt sich aus der TOC-Version:
   - `x.y.z-alpha.N` → Prerelease (kein CurseForge)
   - `x.y.z-beta.N` → normales Release, im Titel als Beta markiert (kein Prerelease)
+  - `x.y.z-latest.N` → normales Release (stabile Stufe, ohne Beta-Markierung), CurseForge-Typ Release
   - `x.y.z` → normales Release
 
 ## Lokalisierung

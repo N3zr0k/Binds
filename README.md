@@ -12,9 +12,9 @@
 
 **Binds** zeigt dir direkt im Tooltip, wie du einen Zauber, Gegenstand oder ein Makro auslöst: über welche Taste, welche Maustaste oder welche Klickzauber-Kombination. Kein Suchen mehr in Aktionsleisten, Makrofenster oder Tastaturbelegung.
 
-Binds **liest** Belegungen nur aus dem Spiel und **ändert** nichts: keine Tastenbelegungen, keine Makros, keine Aktionsleisten. Einzige Ausnahme ist die optionale Mouseover-Funktion für Klickzauber in WoW Forever (standardmäßig aus, siehe unten).
+Binds **liest** Belegungen nur aus dem Spiel und **ändert** nichts: keine Tastenbelegungen, keine Makros, keine Aktionsleisten. Einzige Ausnahme ist die optionale Mouseover-Funktion für Klickzauber (standardmäßig aus, siehe unten).
 
-> Status: `0.1.16-beta.1` – Beta. Belegungen werden aus Aktionsleisten, Haltungsleiste, direkt belegten Makros und Klickzaubern gelesen; Ingame-Test läuft.
+> Status: `1.0.0-latest.1` – stabil. Belegungen werden aus Aktionsleisten, Haltungsleiste, direkt belegten Makros und Klickzaubern gelesen; Ingame-Test läuft.
 
 ## Funktionen
 
@@ -27,7 +27,7 @@ Binds **liest** Belegungen nur aus dem Spiel und **ändert** nichts: keine Taste
 - **Klickzauber im Einheiten-Tooltip:** Auf freundlichen Einheiten, z. B. Spielerframes, listet der Tooltip die Klickzauber, die du dort wirken kannst (Heilungen, Entzauberungen). Es erscheinen alle passenden Klickzauber; der optionale Modifikator-Filter entscheidet wie bei den anderen Tooltips, ob etwas angezeigt wird. Abschaltbar in den Optionen.
 - **Automatische Aktualisierung**, sobald sich Belegungen, Makros, Leisten oder die Gestalt ändern.
 - **Optionaler Modifikator-Filter:** Abschnitt nur anzeigen, solange Umschalt, Strg und/oder Alt gedrückt ist.
-- **Optional, nur WoW Forever: Mouseover-Zauber in der Spielwelt** (standardmäßig aus): Blizzard-Klickzauber mit Modifikator, z. B. Umschalt + Rechtsklick, wirken auch auf Einheiten in der Spielwelt. Das Click-Casting-Profil selbst bleibt unverändert, einfache Klicks bleiben unberührt, Änderungen greifen außerhalb des Kampfes.
+- **Optional: Mouseover-Zauber in der Spielwelt** (standardmäßig aus): Blizzard-Klickzauber mit Modifikator, z. B. Umschalt + Rechtsklick, wirken auch auf Einheiten in der Spielwelt. Das Click-Casting-Profil selbst bleibt unverändert, einfache Klicks bleiben unberührt, Änderungen greifen außerhalb des Kampfes.
 - **Titan Panel, Minimap-Symbol und Addon-Compartment:**
   - Rechtsklick: Binds-Optionen
   - Umschalt + Linksklick: Klickzauber-Einstellungen

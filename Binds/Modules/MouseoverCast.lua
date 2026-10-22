@@ -3,7 +3,7 @@ local Binds = ns.Binds
 
 -- Optional: lets the Blizzard click casts that have a modifier (Shift + right click ...) also work on units in the
 -- world, as mouseover casts. The click casting profile itself is not changed; this only mirrors it with override
--- bindings. Only active in WoW Forever, off by default. Override bindings and secure buttons can only change out of combat.
+-- bindings. Off by default. Override bindings and secure buttons can only change out of combat.
 local MouseoverCast = Binds:RegisterModule("MouseoverCast")
 
 local TYPE = (Enum and Enum.ClickBindingType) or { Spell = 1, Macro = 2, Interaction = 3 }
@@ -43,10 +43,6 @@ local function MacroText(entry)
 end
 
 function MouseoverCast:Apply()
-	-- Retail click casts already work on units in the world; this is only for WoW Forever.
-	if Binds.isRetail then
-		return
-	end
 	if InCombatLockdown() then
 		pending = true
 		return

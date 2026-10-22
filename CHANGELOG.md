@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.0-latest.1
+- First stable version: includes everything from the 0.1.x alpha and beta versions.
+- New stage "latest" in the version scheme: handled by the release workflow like a normal release (no beta label).
+
+## 0.1.17-beta.1
+- Mouseover casts now apply to Retail and WoW Forever alike (the Forever-only restriction was removed).
+
 ## 0.1.16-beta.1
 - Fixed: Blizzard error "attempt to index local 'color' (a secret table value ...)" in tooltips. Binds no longer refreshes the tooltip when bindings change, and the modifier-filter refresh skips unit tooltips and combat.
 
