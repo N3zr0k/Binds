@@ -479,6 +479,47 @@ function Scanner:GetClickCastKeys()
 	return entries
 end
 
+-- Spell lookups can fail or return protected values; anything unclear counts as "does not apply".
+local function IsKnownSpell(spellID)
+	if not IsPlayerSpell then
+		return true
+	end
+	local ok, known = pcall(IsPlayerSpell, spellID)
+	return ok and Clean(known) == true
+end
+
+local function IsHelpfulSpell(spellID)
+	local ok, helpful
+	if C_Spell and C_Spell.IsSpellHelpful then
+		ok, helpful = pcall(C_Spell.IsSpellHelpful, spellID)
+	elseif _G.IsHelpfulSpell then
+		ok, helpful = pcall(_G.IsHelpfulSpell, GetSpellName(spellID))
+	end
+	return ok and Clean(helpful) == true
+end
+
+-- Click casts for a friendly unit: only helpful spells (heals, dispels ...) that you know, whatever their modifiers.
+-- Macros count when they resolve to a spell.
+function Scanner:GetFriendlyClickCasts()
+	local casts = {}
+	if not self:IsClickCastingAvailable() then
+		return casts
+	end
+	for _, info in ipairs(C_ClickBindings.GetProfileInfo() or {}) do
+		local kind, id = Clean(info.type), Clean(info.actionID)
+		local spellID
+		if kind == TYPE.Spell then
+			spellID = id
+		elseif kind == TYPE.Macro then
+			spellID = id and MacroSpellID(id)
+		end
+		if spellID and IsKnownSpell(spellID) and IsHelpfulSpell(spellID) then
+			table.insert(casts, { binding = ClickBindingText(info), name = ClickActionName(info) })
+		end
+	end
+	return casts
+end
+
 -- Only spell click casts belong to a spell tooltip; target/menu interactions have no tooltip of their own.
 function Scanner:CollectClickBindings(result)
 	if not self:IsClickCastingAvailable() then

@@ -204,6 +204,8 @@ end
 
 Binds.defaults = {
 	showInTooltip = true,
+	-- Unit tooltips list the click casts usable on that friendly unit.
+	unitClickCasts = true,
 	-- Optional: Blizzard click casts with a modifier also act as mouseover casts on units in the world.
 	mouseoverCasts = false,
 	-- Which category rows the tooltip section shows.

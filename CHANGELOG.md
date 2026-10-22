@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.15-beta.1
+- New: tooltips of friendly units (player frames, world) list all click casts you can use on them, helpful spells such as heals and dispels. The modifier filter decides whether it is shown. Option "Click casts in unit tooltips" under Tooltip, on by default.
+- TOC: Retail interface 120107 (12.1.7) removed again until that patch is live.
+- Mouseover casts are WoW Forever only: the option is hidden and the module inactive in Retail, where click casts already work in the world.
+
 ## 0.1.14-beta.1
 - Fixed: mouseover casts did nothing because the secure button only listened for the button release; it now registers both directions.
 

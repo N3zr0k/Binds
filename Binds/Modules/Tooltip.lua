@@ -30,6 +30,56 @@ local function ModifierFilterPasses(filter)
 		or false
 end
 
+local function SafeUnit(unit)
+	if unit == nil or (issecretvalue and issecretvalue(unit)) then
+		return nil
+	end
+	return unit
+end
+
+-- Unit tooltips (player frames, nameplates, world): the click casts usable on a friendly unit.
+function Tooltip:AddUnitSection(tooltip, unit)
+	local db = Binds.db
+	if not (tooltip and db and db.showInTooltip and db.unitClickCasts and db.categories.click) then
+		return
+	end
+	-- Same modifier filter as the other tooltips decides whether anything is shown at all.
+	if not ModifierFilterPasses(db.modifierFilter) then
+		return
+	end
+	if tooltip.bindsUnitSectionAdded then
+		return
+	end
+	if not unit and tooltip.GetUnit then
+		local _, token = tooltip:GetUnit()
+		unit = SafeUnit(token)
+	end
+	unit = SafeUnit(unit) or "mouseover"
+	local ok, friendly = pcall(function()
+		return UnitExists(unit) and UnitIsFriend("player", unit)
+	end)
+	if not ok or not friendly or (issecretvalue and issecretvalue(friendly)) then
+		return
+	end
+
+	local scanner = Binds:GetModule("Scanner")
+	local casts = scanner and scanner:GetFriendlyClickCasts()
+	if not casts or #casts == 0 then
+		return
+	end
+
+	tooltip.bindsUnitSectionAdded = true
+	tooltip:AddLine(" ")
+	Binds:AddTooltipHeader(tooltip)
+	local color = Binds.categoryColors.click
+	local light = Binds.categoryLightColors.click
+	local icon = Icon("mouse-pointer-click", color)
+	for _, cast in ipairs(casts) do
+		tooltip:AddDoubleLine(icon .. cast.name, cast.binding, color.r, color.g, color.b, light.r, light.g, light.b)
+	end
+	tooltip:Show()
+end
+
 function Tooltip:AddSection(tooltip, kind, id)
 	if not (tooltip and kind and id) then
 		return
@@ -89,6 +139,11 @@ local function HookRetail()
 	TooltipDataProcessor.AddTooltipPostCall(types.Item, function(tooltip, data)
 		Tooltip:AddSection(tooltip, "item", data and data.id)
 	end)
+	if types.Unit then
+		TooltipDataProcessor.AddTooltipPostCall(types.Unit, function(tooltip)
+			Tooltip:AddUnitSection(tooltip)
+		end)
+	end
 	if types.Macro then
 		TooltipDataProcessor.AddTooltipPostCall(types.Macro, function(tooltip, data)
 			Tooltip:AddSection(tooltip, "macro", data and data.id)
@@ -105,6 +160,9 @@ local function HookLegacy(tooltip)
 		local _, link = self:GetItem()
 		Tooltip:AddSection(self, "item", ItemIdFromLink(link))
 	end)
+	tooltip:HookScript("OnTooltipSetUnit", function(self)
+		Tooltip:AddUnitSection(self)
+	end)
 	-- Macros have no own tooltip script in older clients; they only appear via action buttons.
 	hooksecurefunc(tooltip, "SetAction", function(self, slot)
 		local actionType, id = GetActionInfo(slot)
@@ -117,6 +175,7 @@ end
 local function HookTooltip(tooltip)
 	tooltip:HookScript("OnTooltipCleared", function(self)
 		self.bindsSectionAdded = nil
+		self.bindsUnitSectionAdded = nil
 	end)
 	if not (TooltipDataProcessor and TooltipDataProcessor.AddTooltipPostCall) then
 		HookLegacy(tooltip)

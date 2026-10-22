@@ -171,6 +171,12 @@ do
 		table.insert(categoryChecks, check)
 	end
 
+	local unitCheck
+	unitCheck, afterCategories = CreateCheckbox(panel, afterCategories, L.OPT_UNIT_CLICKCASTS, L.OPT_UNIT_CLICKCASTS_DESC,
+		function() return Binds.db.unitClickCasts end,
+		function(value) Binds.db.unitClickCasts = value end, 30)
+	table.insert(categoryChecks, unitCheck)
+
 	local filterCheck, afterFilter = CreateCheckbox(panel, afterCategories, L.OPT_MODIFIER_FILTER, L.OPT_MODIFIER_FILTER_DESC,
 		function() return Binds.db.modifierFilter.enabled end,
 		function(value) Binds.db.modifierFilter.enabled = value end)
@@ -210,17 +216,25 @@ do
 		end
 	end)
 
-	-- Click casting
-	local clickSection = CreateSection(panel, modifierChecks[1], L.SECTION_CLICKCAST)
-	clickSection:ClearAllPoints()
-	clickSection:SetPoint("TOPLEFT", modifierChecks[1], "BOTTOMLEFT", -30, -SECTION_GAP)
+	-- Click casting: only WoW Forever needs this, Retail click casts already work on units in the world.
+	local afterClick = modifierChecks[1]
+	if not Binds.isRetail then
+		local clickSection = CreateSection(panel, modifierChecks[1], L.SECTION_CLICKCAST)
+		clickSection:ClearAllPoints()
+		clickSection:SetPoint("TOPLEFT", modifierChecks[1], "BOTTOMLEFT", -30, -SECTION_GAP)
 
-	local _, afterMouseover = CreateCheckbox(panel, clickSection, L.OPT_MOUSEOVER, L.OPT_MOUSEOVER_DESC,
-		function() return Binds.db.mouseoverCasts end,
-		function(value) Binds.db.mouseoverCasts = value end)
+		_, afterClick = CreateCheckbox(panel, clickSection, L.OPT_MOUSEOVER, L.OPT_MOUSEOVER_DESC,
+			function() return Binds.db.mouseoverCasts end,
+			function(value) Binds.db.mouseoverCasts = value end)
+	end
 
 	-- Minimap
-	local minimapSection = CreateSection(panel, afterMouseover, L.SECTION_MINIMAP)
+	local minimapSection = CreateSection(panel, afterClick, L.SECTION_MINIMAP)
+	if Binds.isRetail then
+		-- The modifier checkboxes are indented; the section title starts at the panel's left edge again.
+		minimapSection:ClearAllPoints()
+		minimapSection:SetPoint("TOPLEFT", modifierChecks[1], "BOTTOMLEFT", -30, -SECTION_GAP)
+	end
 
 	local _, afterMinimap = CreateCheckbox(panel, minimapSection, L.OPT_MINIMAP, L.OPT_MINIMAP_DESC,
 		function() return not Binds.db.minimap.hide end,
