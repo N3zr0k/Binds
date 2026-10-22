@@ -14,7 +14,7 @@
 
 Binds **liest** Belegungen nur aus dem Spiel und **ändert** nichts: keine Tastenbelegungen, keine Makros, keine Aktionsleisten. Einzige Ausnahme ist die optionale Mouseover-Funktion für Klickzauber in WoW Forever (standardmäßig aus, siehe unten).
 
-> Status: `0.1.15-beta.1` – Beta. Belegungen werden aus Aktionsleisten, Haltungsleiste, direkt belegten Makros und Klickzaubern gelesen; Ingame-Test läuft.
+> Status: `0.1.16-beta.1` – Beta. Belegungen werden aus Aktionsleisten, Haltungsleiste, direkt belegten Makros und Klickzaubern gelesen; Ingame-Test läuft.
 
 ## Funktionen
 

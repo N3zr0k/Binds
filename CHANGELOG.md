@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.1.16-beta.1
+- Fixed: Blizzard error "attempt to index local 'color' (a secret table value ...)" in tooltips. Binds no longer refreshes the tooltip when bindings change, and the modifier-filter refresh skips unit tooltips and combat.
+
 ## 0.1.15-beta.1
 - New: tooltips of friendly units (player frames, world) list all click casts you can use on them, helpful spells such as heals and dispels. The modifier filter decides whether it is shown. Option "Click casts in unit tooltips" under Tooltip, on by default.
 - TOC: Retail interface 120107 (12.1.7) removed again until that patch is live.

@@ -4,7 +4,7 @@
 ## Notes-deDE: Zeigt Tastatur-, Maus- und Klickzauber-Belegungen in Zauber-, Gegenstands- und Makro-Tooltips.
 ## Notes-frFR: Affiche les raccourcis clavier, souris et clic dans les infobulles des sorts, objets et macros.
 ## Author: N3zr0k
-## Version: 0.1.15-beta.1
+## Version: 0.1.16-beta.1
 ## IconTexture: Interface\AddOns\Binds\Media\Binds_Icon_dunkel_64x64
 ## X-License: All rights reserved
 ## X-Website: https://github.com/N3zr0k/Binds

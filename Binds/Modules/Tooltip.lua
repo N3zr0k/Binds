@@ -192,22 +192,24 @@ function Tooltip:OnInitialize()
 		HookTooltip(ItemRefTooltip)
 	end
 	Binds:RegisterModuleEvent(self, "MODIFIER_STATE_CHANGED", "OnModifierChanged")
-	Binds:On("BindingsChanged", self, "OnBindingsChanged")
 end
 
--- Re-render the visible tooltip so filter and binding changes show up on the next update.
+-- Re-render the visible tooltip so a changed modifier filter shows up right away. Calling RefreshData from addon
+-- code taints it, and Blizzard then fails on protected ("secret") tooltip data. Unit tooltips refresh themselves
+-- anyway, and nothing is refreshed in combat, so those cases are skipped.
 local function RefreshVisibleTooltip()
-	if GameTooltip:IsShown() and GameTooltip.RefreshData then
-		GameTooltip:RefreshData()
+	if not (GameTooltip:IsShown() and GameTooltip.RefreshData) or InCombatLockdown() then
+		return
 	end
+	local _, unit = GameTooltip:GetUnit()
+	if unit ~= nil or (issecretvalue and issecretvalue(unit)) then
+		return
+	end
+	GameTooltip:RefreshData()
 end
 
 function Tooltip:OnModifierChanged()
 	if Binds.db and Binds.db.modifierFilter.enabled then
 		RefreshVisibleTooltip()
 	end
-end
-
-function Tooltip:OnBindingsChanged()
-	RefreshVisibleTooltip()
 end
