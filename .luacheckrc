@@ -18,6 +18,7 @@ globals = {
 -- WoW API used by Binds; extend when new API is used.
 read_globals = {
 	"BugLab", "IsPlayerSpell", "IsMetaKeyDown", "UnitExists", "UnitIsFriend", "IsShiftKeyDown", "IsControlKeyDown", "IsAltKeyDown", "UIParent", "ClearOverrideBindings", "SetOverrideBindingClick", "GetMacroBody", "AddonList_InitButton", "AddonList_Update", "MAX_ADDONS_DISPLAYED", "GetAddOnInfo", "C_Timer", "issecretvalue", "bit", "C_ActionBar", "C_Item", "GetBindingKey", "GetMacroItem", "GetMacroSpell", "GetNumMacros", "GetNumShapeshiftForms", "GetShapeshiftFormInfo", "MAX_ACCOUNT_MACROS", "PixelUtil", "GetMacroInfo", "AddonCompartmentFrame", "GetBuildInfo",
+	"UnitIsDeadOrGhost", "UnitCanAttack", "UnitInParty", "UnitInRaid", "GetSpellBookItemInfo", "C_SpellBook", "GetNumSpellTabs", "GetSpellTabInfo", "IsPassiveSpell", "PartyFrame", "SecureHandlerWrapScript", "SecureButton_GetModifiedAttribute", "CompactUnitFrame_SetUnit",
 	"C_AddOns", "C_ClickBindings", "C_Spell", "ClickBindingFrame", "CreateFrame", "Enum",
 	"GameTooltip", "GetActionInfo", "GetAddOnMetadata", "GetBindingText", "GetLocale", "GetSpellInfo",
 	"hooksecurefunc", "InCombatLockdown", "InterfaceOptions_AddCategory", "InterfaceOptionsFrame_OpenToCategory",

@@ -14,7 +14,7 @@
 
 Binds **liest** Belegungen nur aus dem Spiel und **ändert** nichts: keine Tastenbelegungen, keine Makros, keine Aktionsleisten. Einzige Ausnahme ist die optionale Mouseover-Funktion für Klickzauber (standardmäßig aus, siehe unten).
 
-> Status: `1.0.0-latest.1` – stabil. Belegungen werden aus Aktionsleisten, Haltungsleiste, direkt belegten Makros und Klickzaubern gelesen; Ingame-Test läuft.
+> Status: `1.1.8-latest.1` – stabile Version (Stufe latest) mit den neuen Klickzauber-Funktionen. Belegungen werden aus Aktionsleisten, Haltungsleiste, direkt belegten Makros und Klickzaubern gelesen; Ingame-Test läuft.
 
 ## Funktionen
 
@@ -28,6 +28,8 @@ Binds **liest** Belegungen nur aus dem Spiel und **ändert** nichts: keine Taste
 - **Automatische Aktualisierung**, sobald sich Belegungen, Makros, Leisten oder die Gestalt ändern.
 - **Optionaler Modifikator-Filter:** Abschnitt nur anzeigen, solange Umschalt, Strg und/oder Alt gedrückt ist.
 - **Optional: Mouseover-Zauber in der Spielwelt** (standardmäßig aus): Blizzard-Klickzauber mit Modifikator, z. B. Umschalt + Rechtsklick, wirken auch auf Einheiten in der Spielwelt. Das Click-Casting-Profil selbst bleibt unverändert, einfache Klicks bleiben unberührt, Änderungen greifen außerhalb des Kampfes.
+- **Optional: Zweiter Zauber** (Seite *Klickzauber*, setzt Mouseover-Zauber voraus): Zu jedem Klickzauber mit Modifikator legst du ein Gegenstück fest, indem du ihn aus einer Liste der einsetzbaren Zauber deines Zauberbuchs wählst: zu einem Heilzauber ein Schadenszauber, zu einem Schadenszauber ein Heilzauber, zwei Zauber derselben Art sind wählbar, aber ausgegraut und inaktiv, mit Warnsymbol und Hinweistext (die Liste blendet sie standardmäßig aus; *Alle Zauber anzeigen* zeigt sie). Der zweite Zauber wirkt nur auf Feinde bzw. Freunde, auf derselben Tastenkombination. Im Tooltip stehen beide Symbole, ohne Namen des zweiten Zaubers.
+- **Optional: Wiederbelebung** (Seite *Klickzauber*): Ist das Ziel ein toter Spieler deiner Gruppe oder deines Schlachtzugs, wirkt jeder Klickzauber mit Modifikator stattdessen die Wiederbelebung (normal oder Im Kampf). Die Option erscheint nur, wenn deine Klasse eine Wiederbelebung hat.
 - **Titan Panel, Minimap-Symbol und Addon-Compartment:**
   - Rechtsklick: Binds-Optionen
   - Umschalt + Linksklick: Klickzauber-Einstellungen
@@ -61,13 +63,15 @@ Alle Libraries (LibStub, CallbackHandler-1.0, LibDataBroker-1.1, LibDBIcon-1.0) 
 | `/binds` | Optionen öffnen |
 | `/binds minimap` | Minimap-Symbol ein- oder ausblenden |
 
-Die Optionen findest du unter *Einstellungen → AddOns → Binds*: Die Seite **Binds** zeigt Version und Kurzinfo, alle Einstellungen liegen in der Unterkategorie **Allgemein**.
+Die Optionen findest du unter *Einstellungen → AddOns → Binds*: Die Seite **Binds** zeigt Version und Kurzinfo, die Einstellungen liegen in der Unterkategorie **Allgemein**. Ist dort *Mouseover-Zauber in der Spielwelt* angehakt, erscheint darunter die Seite **Klickzauber** (nach dem Umschalten ist ein `/reload` nötig). Die Seite Allgemein lässt sich scrollen.
 
 Gespeichert werden nur Einstellungen, immer kontoweit für alle Charaktere (`BindsDB`). Erkannte Belegungen werden nie gespeichert, sondern immer live aus dem Spiel gelesen.
 
 ## Grenzen
 
 - Makros werden nicht textlich analysiert. Zugeordnet wird, was das Spiel für ein Makro gerade als Zauber oder Gegenstand meldet.
+- Zweiter Zauber und Wiederbelebung wirken nur bei Klicks mit Modifikator: auf Einheiten in der Spielwelt (Mouseover) und, experimentell und abschaltbar, auf Blizzards Spieler-, Ziel-, Fokus-, Gruppen- und Schlachtzugsfenstern. Einfache Klicks bleiben unberührt. Auf den Fenstern lenkt Binds dafür genau diese Klicks über eine gesicherte Vorstufe auf eine unbenutzte virtuelle Maustaste um (Einstellung nur außerhalb des Kampfes, Wirkung auch im Kampf); Blizzards Klickzauber-Profil bleibt unverändert, Fenster anderer Addons sind nicht betroffen.
+- Ob ein Zauber auf Freunde oder Feinde wirkt, entnimmt Binds den Angaben des Spiels. Es lässt sich jeder bekannte Zauber als zweiter wählen; zwei Zauber derselben Art (zwei freundliche oder zwei feindliche) bleiben ausgegraut und wirken nicht, mit Hinweis. Die Auswahlliste zeigt sie nur, wenn *Alle Zauber anzeigen* eingeschaltet ist (standardmäßig aus).
 - Gamepad-Belegungen werden in Version 1 nicht angezeigt.
 - Getestet wird in der WoW-Forever-Beta bis Stufe 30.
 

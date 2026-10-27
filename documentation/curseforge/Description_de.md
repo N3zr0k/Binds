@@ -25,6 +25,10 @@ Binds **liest** deine Belegungen nur. Tastenbelegungen, Makros und Aktionsleiste
 | **Alle Quellen** | Aktionsleisten, Haltungsleiste, Makros und Blizzard-Klickzauber |
 | **Immer aktuell** | Aktualisiert sich bei geänderten Belegungen, Makros, Leisten oder Gestalt; kein Dauer-Scan |
 | **Nur wenn du willst** | Optional: Abschnitt nur, solange Umschalt, Strg oder Alt gedrückt ist |
+| **Zweiter Zauber** | Optional: zu jedem Klickzauber mit Modifikator ein Gegenstück (Heilung ↔ Schaden), das auf Feinde bzw. Freunde wirkt, auf denselben Tasten. Auswahl per Liste; zwei Zauber derselben Art bleiben ausgegraut und inaktiv (mit Warnhinweis, auf Wunsch aus der Liste ausgeblendet) |
+| **Einheitenfenster** | Optional: Zweitzauber und Wiederbelebung wirken auch auf Blizzards Spieler-, Ziel-, Fokus-, Gruppen- und Schlachtzugsfenstern |
+| **Zauber-Symbole** | Im Klickzauber-Tooltip zeigt Binds die Symbole beider Zauber (abschaltbar) |
+| **Wiederbelebung** | Optional: jeder Klickzauber mit Modifikator belebt einen toten Gruppenspieler; nur, wenn deine Klasse es kann |
 
 ### Schnellzugriff
 

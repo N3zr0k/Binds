@@ -208,6 +208,21 @@ Binds.defaults = {
 	unitClickCasts = true,
 	-- Optional: Blizzard click casts with a modifier also act as mouseover casts on units in the world.
 	mouseoverCasts = false,
+	-- Extras for click casts; they ride on the mouseover module and only take effect while mouseoverCasts is on.
+	clicks = {
+		-- Spell icons next to click casts in tooltips.
+		icons = true,
+		-- Counterpart spell per click cast: heal <-> damage, keyed by the first spell ID.
+		second = false,
+		secondSpells = {},
+		-- The choice list also offers spells of the same kind (greyed out, inactive).
+		showAll = false,
+		-- Resurrection on dead group members, "normal" or "combat" variant, whatever click is used.
+		resurrect = false,
+		-- Carry second spell and resurrection over to Blizzard's unit frames.
+		unitFrames = true,
+		resurrectMode = "normal",
+	},
 	-- Which category rows the tooltip section shows.
 	categories = {
 		keyboard = true,

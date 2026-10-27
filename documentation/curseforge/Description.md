@@ -25,6 +25,10 @@ Binds only **reads** your bindings. It never changes key bindings, macros or act
 | **All your sources** | Action bars, stance bar, macros and Blizzard click casting |
 | **Always current** | Updates when bindings, macros, bars or your form change; no constant scanning |
 | **Only when you want it** | Optional: show the section only while Shift, Ctrl or Alt is held |
+| **Second spell** | Optional: pair each modifier click cast with a counterpart (heal ↔ damage) that acts on enemies or friends respectively, on the same keys. Picked from a list; two spells of the same kind stay greyed out and inactive (with a warning, optionally hidden from the list) |
+| **Unit frames** | Optional: second spell and resurrection also work on Blizzard's player, target, focus, party and raid frames |
+| **Spell icons** | Click cast tooltips show the icons of both spells (can be switched off) |
+| **Resurrection** | Optional: any modifier click cast resurrects a dead group member; only offered if your class can |
 
 ### Quick access
 

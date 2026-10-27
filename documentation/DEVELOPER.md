@@ -9,10 +9,13 @@ Binds/
   Libs.xml           alle Libraries; neue Libs nur hier eintragen
   Core/
     Core.lua         Addon-Objekt, Locale, Farben, Einstellungen, Events, Modulsystem
-    Options.lua      Einstellungen: Hauptseite Binds + Unterkategorie Allgemein
+    Options.lua      Einstellungen: Hauptseite Binds + Unterkategorien Allgemein und Klickzauber
     Commands.lua     /binds
   Modules/
+    ClickSpells.lua  Regeln für zweiten Zauber und Wiederbelebung
     Scanner.lua      liest Belegungen, Cache nur im Speicher
+    MouseoverCast.lua Mouseover-Makros (Klickzauber, zweiter Zauber, Wiederbelebung)
+    UnitFrames.lua   dieselben Makros als Klick-Attribute auf Blizzards Einheitenfenstern
     Tooltip.lua      Tooltip-Abschnitt
     Broker.lua       LibDataBroker, Minimap, Addon-Compartment
   Locales/           deDE, enUS, frFR

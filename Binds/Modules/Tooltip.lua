@@ -37,7 +37,29 @@ local function SafeUnit(unit)
 	return unit
 end
 
--- Unit tooltips (player frames, nameplates, world): the click casts usable on a friendly unit.
+-- "friend", "dead" (friendly, dead, in the player's group), "enemy" or nil for everything else.
+local function UnitState(unit)
+	if not UnitExists(unit) then
+		return nil
+	end
+	if UnitIsFriend("player", unit) then
+		local dead = UnitIsDeadOrGhost(unit) and (UnitInParty(unit) or UnitInRaid(unit))
+		return dead and "dead" or "friend"
+	end
+	return UnitCanAttack("player", unit) and "enemy" or nil
+end
+
+-- Spell icon in front of the name, unless the icons are switched off.
+local function SpellIcon(spellID)
+	local clickSpells = Binds:GetModule("ClickSpells")
+	if Binds.db.clicks.icons and clickSpells then
+		return clickSpells:IconString(spellID)
+	end
+	return ""
+end
+
+-- Unit tooltips (player frames, nameplates, world): the click casts usable on that unit. Friends list their click
+-- casts, dead group members the resurrection, enemies the second spells of the click casts.
 function Tooltip:AddUnitSection(tooltip, unit)
 	local db = Binds.db
 	if not (tooltip and db and db.showInTooltip and db.unitClickCasts and db.categories.click) then
@@ -55,16 +77,32 @@ function Tooltip:AddUnitSection(tooltip, unit)
 		unit = SafeUnit(token)
 	end
 	unit = SafeUnit(unit) or "mouseover"
-	local ok, friendly = pcall(function()
-		return UnitExists(unit) and UnitIsFriend("player", unit)
-	end)
-	if not ok or not friendly or (issecretvalue and issecretvalue(friendly)) then
+	local ok, state = pcall(UnitState, unit)
+	if not ok or not state or (issecretvalue and issecretvalue(state)) then
 		return
 	end
 
 	local scanner = Binds:GetModule("Scanner")
-	local casts = scanner and scanner:GetFriendlyClickCasts()
-	if not casts or #casts == 0 then
+	local clickSpells = Binds:GetModule("ClickSpells")
+	local casts, anyLabel = {}, nil
+	if state == "dead" then
+		local rezID, rezName = clickSpells:GetResurrection()
+		if rezID and rezName then
+			casts = { { name = rezName, spellID = rezID } }
+			anyLabel = L.CLICK_ANY
+		else
+			state = "friend"
+		end
+	end
+	if state == "friend" then
+		casts = scanner and scanner:GetFriendlyClickCasts() or {}
+		for _, cast in ipairs(scanner and scanner:GetSecondCasts("friend") or {}) do
+			table.insert(casts, cast)
+		end
+	elseif state == "enemy" then
+		casts = scanner and scanner:GetSecondCasts("enemy") or {}
+	end
+	if #casts == 0 then
 		return
 	end
 
@@ -75,9 +113,31 @@ function Tooltip:AddUnitSection(tooltip, unit)
 	local light = Binds.categoryLightColors.click
 	local icon = Icon("mouse-pointer-click", color)
 	for _, cast in ipairs(casts) do
-		tooltip:AddDoubleLine(icon .. cast.name, cast.binding, color.r, color.g, color.b, light.r, light.g, light.b)
+		tooltip:AddDoubleLine(icon .. SpellIcon(cast.spellID) .. cast.name, anyLabel or cast.binding,
+			color.r, color.g, color.b, light.r, light.g, light.b)
 	end
 	tooltip:Show()
+end
+
+-- Click casts with a second spell show both icons behind the binding; without icons the other spell's name stands in.
+local function PairText(key, pair, id)
+	local clickSpells = Binds:GetModule("ClickSpells")
+	if not Binds.db.clicks.icons then
+		return key .. " (" .. (clickSpells:Name(pair.first == id and pair.second or pair.first) or "") .. ")"
+	end
+	return key .. " " .. clickSpells:IconString(pair.first) .. "/ " .. clickSpells:IconString(pair.second)
+end
+
+local function ClickTexts(category, entry, keys, id)
+	if category.key ~= "click" or not entry.clickPairs then
+		return table.concat(keys, ", ")
+	end
+	local texts = {}
+	for _, key in ipairs(keys) do
+		local pair = entry.clickPairs[key]
+		table.insert(texts, pair and PairText(key, pair, id) or key)
+	end
+	return table.concat(texts, ", ")
 end
 
 function Tooltip:AddSection(tooltip, kind, id)
@@ -103,7 +163,7 @@ function Tooltip:AddSection(tooltip, kind, id)
 	for _, category in ipairs(CATEGORIES) do
 		local keys = entry[category.key]
 		if keys and #keys > 0 and db.categories[category.key] then
-			table.insert(lines, { category = category, text = table.concat(keys, ", ") })
+			table.insert(lines, { category = category, text = ClickTexts(category, entry, keys, id) })
 		end
 	end
 	-- No hits: no section at all (open point in the scope doc, default recommendation).

@@ -1,8 +1,10 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file="ClickSpells.lua"/>
 	<Script file="Scanner.lua"/>
 	<Script file="Tooltip.lua"/>
 	<Script file="Broker.lua"/>
 	<Script file="MouseoverCast.lua"/>
+	<Script file="UnitFrames.lua"/>
 	<Script file="AddonList.lua"/>
 	<Script file="Probes.lua"/>
 </Ui>

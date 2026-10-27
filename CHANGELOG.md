@@ -1,5 +1,39 @@
 # Changelog
 
+## 1.1.8-latest.1
+- The General page scrolls, so the Developer section is no longer cut off at the bottom of the window.
+- Click cast tooltips show only the two spell icons for a spell pair, without the name of the second spell.
+- README and the CurseForge descriptions now cover the second-spell conflicts, the "Show all spells" option, unit frames and spell icons.
+
+## 1.1.7-alpha.1
+- New option "Show all spells" (Click Casting page, off by default): off, the second-spell list hides spells of the same kind as the first spell; on, they are listed greyed out.
+
+## 1.1.6-alpha.1
+- Second spell: every known spell can be picked again. Two spells of the same kind (two friendly or two hostile ones) stay selectable but are greyed out and do not act; a warning badge with a mouseover text and a chat hint show why. Replaces the strict spell-text check of 1.1.5.
+
+## 1.1.5-alpha.1
+- Second spell: the list and the check are now strict. A heal only accepts damage spells and the other way round. The kind comes from the game's friendly/hostile flag plus the spell text (English, German, French); buffs, dispels, crowd control and spells that act on friends and enemies alike get no counterpart and are not offered.
+
+## 1.1.4-alpha.1
+- Fixed: second spell and resurrection did nothing on Blizzard unit frames, because Blizzard runs a bound click cast before the frame's own attributes. A secure pre-click snippet now turns exactly the affected clicks into an unused virtual button (Button31 ...) that carries Binds' macro; the Blizzard click casting profile stays untouched.
+
+## 1.1.3-alpha.1
+- Debug output for the unit frame click casts: each click on a frame logs the secure type and macro that would run, and game error messages ("Invalid target" ...) are logged while debug is on.
+
+## 1.1.2-alpha.1
+- Options: the "Click Casting" page now sits on the same level as General, directly below Binds.
+- New (experimental): second spell and resurrection also work on Blizzard's player, target, focus, party and raid frames, via click attributes set out of combat (new module UnitFrames, option "Also on Blizzard unit frames", on by default). Click casts without an extra stay with Blizzard.
+
+## 1.1.1-alpha.1
+- Second spell: the slot now opens a list of the spells in your spellbook that fit as counterpart (known, active, the opposite kind), instead of drag and drop, which was impossible with the spellbook and the options both needed open. Right-click still clears the slot.
+
+## 1.1.0-alpha.1
+- New options page "Click Casting" below General. It is only registered while "Mouseover casts in the world" is on (that option moved back to General); switching it needs a /reload.
+- New: second spell for click casts with a modifier. Counterpart per click cast: a damage spell for a heal, a heal for a damage spell. It acts on enemies or friends respectively, on the same keys, through the mouseover macro.
+- New: resurrection for dead group members (normal or combat variant, any click cast with a modifier), only offered when the class has a resurrection.
+- New: spell icons in click cast tooltips (option under Tooltip); the spell tooltip shows both icons and the counterpart's name, enemy and dead-member tooltips list the second spells and the resurrection.
+- New module ClickSpells (rules for second spell and resurrection); Scanner gets GetModifierSpellClicks and GetSecondCasts.
+
 ## 1.0.0-latest.1
 - First stable version: includes everything from the 0.1.x alpha and beta versions.
 - New stage "latest" in the version scheme: handled by the release workflow like a normal release (no beta label).

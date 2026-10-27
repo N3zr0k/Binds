@@ -11,6 +11,7 @@ local dirty = true
 -- Page, form and vehicle switches change which key fires which spell, so they invalidate too.
 local REFRESH_EVENTS = {
 	"PLAYER_ENTERING_WORLD",
+	"SPELLS_CHANGED",
 	"UPDATE_BINDINGS",
 	"UPDATE_MACROS",
 	"ACTIONBAR_SLOT_CHANGED",
@@ -115,7 +116,7 @@ end
 local function Add(result, kind, id, category, text)
 	id = tonumber(id)
 	if not (kind and id and category and text) then
-		return
+		return nil
 	end
 	result[kind] = result[kind] or {}
 	local entry = result[kind][id]
@@ -129,6 +130,7 @@ local function Add(result, kind, id, category, text)
 		entry.seen[token] = true
 		table.insert(entry[category], text)
 	end
+	return entry
 end
 Scanner.Add = Add
 
@@ -469,10 +471,17 @@ function Scanner:GetClickCastKeys()
 		end
 		-- Plain clicks stay untouched: they are camera and targeting in the world.
 		if base and #prefix > 0 then
+			-- Secure click attributes: prefix in alt-ctrl-shift order, button as number; META has no attribute.
+			local attrPrefix
+			if not modifiers.META then
+				attrPrefix = (modifiers.ALT and "alt-" or "") .. (modifiers.CTRL and "ctrl-" or "") .. (modifiers.SHIFT and "shift-" or "")
+			end
 			table.insert(entries, {
 				key = table.concat(prefix, "-") .. "-" .. base,
 				type = Clean(info.type),
 				actionID = Clean(info.actionID),
+				attrPrefix = attrPrefix,
+				buttonIndex = tonumber(base:match("%d+")),
 			})
 		end
 	end
@@ -514,7 +523,39 @@ function Scanner:GetFriendlyClickCasts()
 			spellID = id and MacroSpellID(id)
 		end
 		if spellID and IsKnownSpell(spellID) and IsHelpfulSpell(spellID) then
-			table.insert(casts, { binding = ClickBindingText(info), name = ClickActionName(info) })
+			table.insert(casts, { binding = ClickBindingText(info), name = ClickActionName(info), spellID = spellID })
+		end
+	end
+	return casts
+end
+
+-- Spell click casts with a modifier: the ones the world mouseover module acts on, so the only ones that can have a
+-- second spell. Plain clicks stay with Blizzard's unit frames.
+function Scanner:GetModifierSpellClicks()
+	local clicks = {}
+	if not self:IsClickCastingAvailable() then
+		return clicks
+	end
+	for _, info in ipairs(C_ClickBindings.GetProfileInfo() or {}) do
+		local spellID = Clean(info.actionID)
+		if Clean(info.type) == TYPE.Spell and spellID and next(ClickModifiers(info.modifiers)) then
+			table.insert(clicks, { binding = ClickBindingText(info), spellID = spellID })
+		end
+	end
+	return clicks
+end
+
+-- Active second spells as tooltip rows. side is "friend" or "enemy": the unit type the second spell acts on.
+function Scanner:GetSecondCasts(side)
+	local casts = {}
+	local clickSpells = Binds:GetModule("ClickSpells")
+	if not clickSpells then
+		return casts
+	end
+	for _, click in ipairs(self:GetModifierSpellClicks()) do
+		local second = clickSpells:GetSecond(click.spellID)
+		if second and clickSpells:SecondSide(click.spellID, second) == side then
+			table.insert(casts, { binding = click.binding, name = clickSpells:Name(second), spellID = second })
 		end
 	end
 	return casts
@@ -525,9 +566,23 @@ function Scanner:CollectClickBindings(result)
 	if not self:IsClickCastingAvailable() then
 		return
 	end
+	local clickSpells = Binds:GetModule("ClickSpells")
 	for _, info in ipairs(C_ClickBindings.GetProfileInfo() or {}) do
 		if Clean(info.type) == TYPE.Spell then
-			Add(result, "spell", Clean(info.actionID), "click", ClickBindingText(info))
+			local spellID, text = Clean(info.actionID), ClickBindingText(info)
+			Add(result, "spell", spellID, "click", text)
+			-- The second spell shares the binding, so its own tooltip lists the click cast as well.
+			local second = spellID and clickSpells and next(ClickModifiers(info.modifiers)) and clickSpells:GetSecond(spellID)
+			if second then
+				local pair = { first = spellID, second = second }
+				for _, id in ipairs({ spellID, second }) do
+					local entry = Add(result, "spell", id, "click", text)
+					if entry then
+						entry.clickPairs = entry.clickPairs or {}
+						entry.clickPairs[text] = pair
+					end
+				end
+			end
 		end
 	end
 end
@@ -536,6 +591,8 @@ function Scanner:OnInitialize()
 	for _, event in ipairs(REFRESH_EVENTS) do
 		Binds:RegisterModuleEvent(self, event, "Invalidate")
 	end
+	-- The click cast extras (second spell) change what the cache holds.
+	Binds:On("SettingsChanged", self, "Invalidate")
 	-- Saving the click casting profile fires no event, so watch the save call itself.
 	if C_ClickBindings and C_ClickBindings.SetProfileByInfo then
 		hooksecurefunc(C_ClickBindings, "SetProfileByInfo", function()
