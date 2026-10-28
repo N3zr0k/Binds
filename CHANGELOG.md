@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.2.23-beta.2
+- Repo only: `.luacheckrc` knows the new globals (`StaticPopupDialogs` as an own global, `MenuUtil`, `BackdropTemplateMixin`, `ChatFontNormal`, `GameFontHighlight`, `UnitFullName`, `UnitName`, `C_TooltipInfo`), so the lint run is clean again.
+
 ## 1.2.23-beta.1
 - Fixed: Shift + left-click on the minimap button, Titan Panel and addon compartment still called the plain open function (the change announced for 1.2.11 never reached the click handler). It now closes the options window first like the click cast icon does, then opens Blizzard's click casting window.
 

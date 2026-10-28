@@ -10,6 +10,7 @@ globals = {
 	"BindsDB",
 	"SLASH_BINDS1",
 	"SlashCmdList",
+	"StaticPopupDialogs",
 	"Binds_OnAddonCompartmentClick",
 	"Binds_OnAddonCompartmentEnter",
 	"Binds_OnAddonCompartmentLeave",
@@ -18,8 +19,8 @@ globals = {
 -- WoW API used by Binds; extend when new API is used.
 read_globals = {
 	"BugLab", "IsPlayerSpell", "IsMetaKeyDown", "UnitExists", "UnitIsFriend", "IsShiftKeyDown", "IsControlKeyDown", "IsAltKeyDown", "UIParent", "ClearOverrideBindings", "SetOverrideBindingClick", "GetMacroBody", "AddonList_InitButton", "AddonList_Update", "MAX_ADDONS_DISPLAYED", "GetAddOnInfo", "C_Timer", "issecretvalue", "bit", "C_ActionBar", "C_Item", "GetBindingKey", "GetMacroItem", "GetMacroSpell", "GetNumMacros", "GetNumShapeshiftForms", "GetShapeshiftFormInfo", "MAX_ACCOUNT_MACROS", "PixelUtil", "GetMacroInfo", "AddonCompartmentFrame", "GetBuildInfo",
-	"UnitIsDeadOrGhost", "UnitLevel", "SettingsPanel", "HideUIPanel", "InterfaceOptionsFrame", "StaticPopupDialogs", "StaticPopup_Show", "ReloadUI", "C_Texture", "GetCursorInfo", "ClearCursor", "C_Container", "GetItemSpell", "GetContainerNumSlots", "GetContainerItemID", "GetSpellDescription", "UnitAffectingCombat", "GetItemCount", "GetItemInfo", "GetItemIcon", "UnitCanAttack", "UnitInParty", "UnitInRaid", "GetSpellBookItemInfo", "C_SpellBook", "GetNumSpellTabs", "GetSpellTabInfo", "IsPassiveSpell", "PartyFrame", "SecureHandlerWrapScript", "SecureButton_GetModifiedAttribute", "CompactUnitFrame_SetUnit",
-	"C_AddOns", "C_ClickBindings", "GameMenuFrame", "CANCEL", "C_Spell", "ClickBindingFrame", "CreateFrame", "Enum",
+	"UnitIsDeadOrGhost", "UnitLevel", "SettingsPanel", "HideUIPanel", "InterfaceOptionsFrame", "StaticPopup_Show", "ReloadUI", "C_Texture", "GetCursorInfo", "ClearCursor", "C_Container", "GetItemSpell", "GetContainerNumSlots", "GetContainerItemID", "GetSpellDescription", "UnitAffectingCombat", "GetItemCount", "GetItemInfo", "GetItemIcon", "UnitCanAttack", "UnitInParty", "UnitInRaid", "GetSpellBookItemInfo", "C_SpellBook", "GetNumSpellTabs", "GetSpellTabInfo", "IsPassiveSpell", "PartyFrame", "SecureHandlerWrapScript", "SecureButton_GetModifiedAttribute", "CompactUnitFrame_SetUnit",
+	"C_AddOns", "C_ClickBindings", "GameMenuFrame", "CANCEL", "BackdropTemplateMixin", "MenuUtil", "ChatFontNormal", "GameFontHighlight", "UnitFullName", "UnitName", "C_TooltipInfo", "C_Spell", "ClickBindingFrame", "CreateFrame", "Enum",
 	"GameTooltip", "GetActionInfo", "GetAddOnMetadata", "GetBindingText", "GetLocale", "GetSpellInfo",
 	"hooksecurefunc", "InCombatLockdown", "InterfaceOptions_AddCategory", "InterfaceOptionsFrame_OpenToCategory",
 	"IsAltKeyDown", "IsControlKeyDown", "IsShiftKeyDown", "ItemRefTooltip", "KeyBindingFrame",

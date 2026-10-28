@@ -14,7 +14,7 @@
 
 Binds **liest** Belegungen nur aus dem Spiel und **ändert** nichts: keine Tastenbelegungen, keine Makros, keine Aktionsleisten. Einzige Ausnahme ist die Mouseover-Funktion für Klickzauber (standardmäßig an, abschaltbar, siehe unten).
 
-> Status: `1.2.23-beta.1` – Beta, neue Seite „Sicherung“ (Export/Import), neue Optik der Klickzauber-Seite und Kampf-Wiederbelebung. Belegungen werden aus Aktionsleisten, Haltungsleiste, direkt belegten Makros und Klickzaubern gelesen; Ingame-Test läuft.
+> Status: `1.2.23-beta.2` – Beta, neue Seite „Sicherung“ (Export/Import), neue Optik der Klickzauber-Seite und Kampf-Wiederbelebung. Belegungen werden aus Aktionsleisten, Haltungsleiste, direkt belegten Makros und Klickzaubern gelesen; Ingame-Test läuft.
 
 ## Funktionen
 
