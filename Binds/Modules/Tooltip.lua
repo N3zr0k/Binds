@@ -50,9 +50,13 @@ local function UnitState(unit)
 end
 
 -- Spell icon in front of the name, unless the icons are switched off.
-local function SpellIcon(spellID)
+local function SpellIcon(spellID, itemID)
 	local clickSpells = Binds:GetModule("ClickSpells")
 	if Binds.db.clicks.icons and clickSpells then
+		if itemID then
+			local texture = clickSpells:ItemTexture(itemID)
+			return texture and ("|T%s:0|t "):format(tostring(texture)) or ""
+		end
 		return clickSpells:IconString(spellID)
 	end
 	return ""
@@ -86,9 +90,9 @@ function Tooltip:AddUnitSection(tooltip, unit)
 	local clickSpells = Binds:GetModule("ClickSpells")
 	local casts, anyLabel = {}, nil
 	if state == "dead" then
-		local rezID, rezName = clickSpells:GetResurrection()
-		if rezID and rezName then
-			casts = { { name = rezName, spellID = rezID } }
+		local rez, rezName = clickSpells:GetResurrection(UnitAffectingCombat and UnitAffectingCombat("player"))
+		if rez and rezName then
+			casts = { { name = rezName, spellID = rez.kind == "spell" and rez.id or nil, itemID = rez.kind == "item" and rez.id or nil } }
 			anyLabel = L.CLICK_ANY
 		else
 			state = "friend"
@@ -113,7 +117,7 @@ function Tooltip:AddUnitSection(tooltip, unit)
 	local light = Binds.categoryLightColors.click
 	local icon = Icon("mouse-pointer-click", color)
 	for _, cast in ipairs(casts) do
-		tooltip:AddDoubleLine(icon .. SpellIcon(cast.spellID) .. cast.name, anyLabel or cast.binding,
+		tooltip:AddDoubleLine(icon .. SpellIcon(cast.spellID, cast.itemID) .. cast.name, anyLabel or cast.binding,
 			color.r, color.g, color.b, light.r, light.g, light.b)
 	end
 	tooltip:Show()
@@ -125,7 +129,7 @@ local function PairText(key, pair, id)
 	if not Binds.db.clicks.icons then
 		return key .. " (" .. (clickSpells:Name(pair.first == id and pair.second or pair.first) or "") .. ")"
 	end
-	return key .. " " .. clickSpells:IconString(pair.first) .. "/ " .. clickSpells:IconString(pair.second)
+	return key .. " " .. clickSpells:PairString(pair.first, pair.second)
 end
 
 local function ClickTexts(category, entry, keys, id)

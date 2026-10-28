@@ -1,6 +1,6 @@
 # Binds – API
 
-Globales Objekt: `Binds` (Stand `1.1.8-latest.1`, kann sich bis zur Beta ändern).
+Globales Objekt: `Binds` (Stand `1.2.7-beta.1`, kann sich bis zur Beta ändern).
 
 ## Kern
 
@@ -54,6 +54,16 @@ Regeln für zweiten Zauber und Wiederbelebung; alles wirkt nur, solange `Binds.d
 | `ClickSpells:GetCandidates(first)` | Liste `{ spellID, name, conflict }` der bekannten, aktiven Zauber im Zauberbuch; `conflict` markiert Zauber derselben Art wie `first`. |
 | `ClickSpells:SetSecond(first, second)` | Setzt oder (mit `nil`) löscht den zweiten Zauber; gibt `true, inaktiv` oder `false` (Zauber unbekannt) zurück. |
 | `ClickSpells:FirstBranch(first, second)` / `SecondSide(first, second)` | Welche Einheitenart der erste Zauber nimmt (`"help"`/`"harm"`) bzw. der zweite (`"friend"`/`"enemy"`). |
-| `ClickSpells:GetAvailableResurrections()` | Bekannte Wiederbelebung `normal, combat` (je ggf. `nil`). |
-| `ClickSpells:GetResurrection()` | Wirksame Wiederbelebung `spellID, name` oder `nil`. |
+| `ClickSpells:Kind(spellID)` | Art des Zaubers: `friend`, `enemy`, `dispel` oder `buff` (Pfeilfarben). |
+| `ClickSpells:GetNormalResurrection()` | Normale Wiederbelebung (spellID) oder `nil`. |
+| `ClickSpells:GetCombatChoices()` | Kampf-Wiederbelebungszauber der Klasse: `{ kind = "spell", id, key }`. Gegenstände kommen aus `GetBagItems`. |
+| `ClickSpells:GetBagItems(all)` | Gegenstände aus den Taschen mit Benutzen-Effekt, dessen Beschreibung nach Wiederbeleben klingt (Stichwörter pro Sprache); mit `all` alle mit Benutzen-Effekt. Einträge `{ id, name, texture }`. |
+| `ClickSpells:GetCombatResurrection()` / `SetCombatResurrection(key)` | Gewählte (sonst erste mögliche) Kampf-Wiederbelebung; Schlüssel `"spell:ID"` / `"item:ID"` (Gegenstand muss in den Taschen sein), `nil` = automatisch. |
+| `ClickSpells:HasResurrection()` | Ob irgendeine Wiederbelebung eingerichtet ist. |
+| `ClickSpells:GetResurrection(inCombat)` | Wirksame Wiederbelebung `{kind, id}, name` für den Kampfzustand oder `nil`. |
 | `ClickSpells:Name(spellID)`, `GetTexture(spellID)`, `IconString(spellID, size?)` | Name, Symbol-Textur, Inline-Textur für Tooltips. |
+
+## Backup
+- `Backup:Export(scope, withBlizzard)` – `scope` is `"account"` or `"character"`; returns the text `BINDS1:scope:payload:check` (character: `BINDS1:character:Name-Realm:payload:check`).
+- `Backup:Import(text, withBlizzard)` – returns `true, scope, count, blizzardCount, reason` or `false, "FORMAT"|"DAMAGED"`. Only known settings are taken over.
+- `Backup:GetBlizzardProfile()` / `Backup:SetBlizzardProfile(list)` – read and replace Blizzard's click casting bindings (`C_ClickBindings`), out of combat only.

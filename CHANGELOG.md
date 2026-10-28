@@ -1,5 +1,100 @@
 # Changelog
 
+## 1.2.23-beta.1
+- Fixed: Shift + left-click on the minimap button, Titan Panel and addon compartment still called the plain open function (the change announced for 1.2.11 never reached the click handler). It now closes the options window first like the click cast icon does, then opens Blizzard's click casting window.
+
+## 1.2.22-beta.1
+- Debug output now also logs every click on the minimap button, Titan Panel and compartment (button, Shift, combat).
+- If Blizzard's click casting window still does not come up after the second try (Shift + left-click on the minimap button, Titan Panel, compartment or the click cast icon), Binds prints one chat line saying what the game offers (function present, window present, options window closed), to find the cause.
+- The check "is the click casting window already open" uses IsVisible instead of IsShown: the window is a child of the spellbook and can report "shown" while its parent is closed, which would have kept Binds from opening it.
+
+## 1.2.21-beta.1
+- Shift + left-click on the minimap button, Titan Panel and addon compartment now runs the very same function as Shift + left-click on the click cast icon on the Click Casting page. It opens Blizzard's click casting window only if it is not already open (the game's own function toggles), and tries once more if the first try did not bring it up.
+
+## 1.2.20-beta.1
+- Click Casting page: a combat resurrection item that was configured stays shown in the "In combat" field, greyed out, when it is missing from the bags or cannot be used; the tooltip says so. The choice is kept and takes effect again once the item is back.
+
+## 1.2.19-beta.1
+- Combat resurrection items from the bags are checked for usability: the game's own check (level, class, profession such as Engineering) and the red requirement lines of the item tooltip. Unusable items are not offered and are not used by the macro; with "Show all spells" they are listed greyed out, and picking one prints why it cannot be used. If no usable item is found, the whole "In combat" line is greyed out and inert (no click, no hover effect, no tooltip).
+
+## 1.2.18-beta.1
+- New option "Descriptions below the options" (General, section Display, default on): it switches the grey explanation texts under the options on and off. Off, the explanation of an option shows as a tooltip while the mouse is over the option; the label is clickable then too. It applies to all pages.
+
+## 1.2.17-beta.1
+- Click Casting page: if the class has no combat resurrection and no suitable item is in the bags, the "In combat" field is greyed out, marked "(unavailable)" and inert; the note below the fields changes to match. It becomes usable again as soon as an item shows up in the bags.
+
+## 1.2.16-beta.1
+- Choice lists (second spell, combat resurrection) use the game's own menu on Retail (the same frame and scroll bar as Blizzard's settings dropdowns, scrolling when the list is long) with the spell or item tooltip on mouseover. It opens directly below the icon (an invisible dropdown button over the icon). Clients without that menu (Forever) keep Binds' own list, now with a tooltip-style frame and a scroll bar.
+
+## 1.2.15-beta.1
+- Click Casting page: hovering the arrows between the click cast and the second spell shows a legend of the arrow colors (friendly, hostile, buff, remove, empty) with a short description and what the left and right arrow point at.
+
+## 1.2.14-beta.1
+- Tooltip arrows are brighter: the colors are mixed half-way towards white, because the grey slider arrow art is only darkened by a tint (the options page cuts the arrow out of a plain color fill instead, which a tooltip text cannot do).
+
+## 1.2.13-beta.1
+- Backup: the text of a character export carries the character name (`BINDS1:character:Name-Realm:payload:check`), and the import confirmation shows it. Texts without a name (1.2.9 to 1.2.12) are still accepted.
+- Backup: a successful import starts with a green check mark.
+- The overview text on the Binds page now also mentions click casting, mouseover click casts, the second spell and resurrection.
+
+## 1.2.12-beta.1
+- Fixed: Shift + left-click on the minimap button or addon compartment did not open Blizzard's click casting window while the game's options window was open. The options window is now closed with Blizzard's own close method (then the generic ways), the game menu is closed too, and the click casting window opens 0.3 s later. A debug line (`click settings: closed windows = ...`) tells whether a window was closed.
+- Backup page: the export and import fields are multi-line boxes with a border that grow with the text, so the whole backup text is visible.
+
+## 1.2.11-beta.1
+- The Click Casting settings shortcut of the minimap button, Titan Panel and addon compartment (Shift + left-click) closes the options window first and then opens Blizzard's click casting window, like the options page does.
+- Click Casting page: the tooltip of the click cast icon shows "Click Casting settings - Shift + left-click" in the same two-colour style as the Binds overview tooltip; Shift + left-click on the icon opens the settings directly (a plain click does nothing; the extra choice menu is gone).
+
+## 1.2.10-beta.1
+- Backup: Blizzard's click casting bindings are now part of the "Account" export too (when "Include Blizzard click casting" is on), not only of the character export. After an import the status line says why Blizzard's click casts were not restored (none in the text, combat, rejected by Blizzard).
+
+## 1.2.9-beta.1
+- Fixed: importing a backup always said "not a Binds backup text". The text used "|" as separator, which WoW edit boxes treat as an escape character and change on copy and paste. The separator is now ":" (format `BINDS1:scope:payload:check`); texts exported with 1.2.8 must be exported again.
+
+## 1.2.8-beta.1
+- New options page "Backup" (next to General and Click Casting): export the Binds settings as a line of text and import them again. Scope "Account" covers all Binds settings; "Current character" covers what hangs on the character's spells (second spells, combat resurrection) and, optionally, Blizzard's own click casting bindings of that character (replaced on import, out of combat only).
+- The backup text is plain data in Base64 with a check value, never executable code; on import only known settings of the right type are taken over, and a confirmation is asked first. Changing the mouseover main switch by an import asks for a reload.
+
+## 1.2.7-beta.1
+- Fixed: the "Blizzard: click casting settings" choice on the Click Casting page did nothing while the settings window was open. From the options page the settings window is closed first and Blizzard's click casting window is opened a moment later, with the same function as the minimap shortcut; the minimap shortcut itself is unchanged.
+- Click Casting page: a click on the click cast icon of a row (left) opens a choice with Blizzard's click casting settings; the icon's tooltip says so.
+- Fixed: the note under the resurrection fields still did not wrap (it lost its right anchor on refresh) and ran out of the window.
+- Click Casting page: while "Mouseover casts in the world" is off, a cover with an explanation blocks the whole page, and switching the option asks whether to reload the interface now (menu entries cannot be removed while the game runs, the page disappears after the reload).
+- Tooltip arrows use the same slider arrow texture as the Click Casting options (Retail atlas, tinted); the right arrow of a mirrored atlas (coordinates the other way round) was wrongly replaced by our own arrow head before. Our own arrow heads (Media/arrow_*) only stand in where the atlases are missing.
+
+## 1.2.6-beta.1
+- Fixed: the long text under the resurrection fields was cut off at the bottom of the Click Casting page; the page height is now measured after the text has wrapped (after every refresh), with some extra room.
+- Tooltips: the two arrows of a spell pair are exactly 2 px apart (a transparent spacer picture, Media/spacer_32x32.tga).
+- "Mouseover casts in the world" (General page) is now on by default and is the main switch for all extra click casting features: off, the mouseover casts, second spell, resurrection and unit frame handling are all inactive and the Click Casting page is not offered (after /reload). Existing settings keep their saved value.
+- Arrows between the icons: the right arrow was missing in the options; both are now the game's left slider arrow (Retail atlas Minimal_SliderBar_Button_Left), the right one turned by half a circle, a little smaller. The tooltips use the right atlas when it exists and otherwise the left one mirrored.
+
+## 1.2.5-beta.1
+- Arrows between the icons: the original slider arrows of the game (Retail atlases Minimal_SliderBar_Button_Left/Right) in the options and, with their atlas texture and coordinates, in the tooltips; centered between the click cast and the second spell. In the options a color fill is masked by the arrow so the color stays bright; the tooltips tint the grey original, so the color is a bit darker there. Clients without the atlases use our own arrow heads (Media/arrow_*).
+- Tooltip order: click casts are always listed without modifier first, then Shift, Ctrl, Alt, then the combinations (Shift+Ctrl, Shift+Alt, Ctrl+Alt, all three); within a group Left, Right, Middle, Button 4, Button 5. Applies to the Binds overview tooltip, the spell tooltips and the unit tooltips.
+
+## 1.2.4-beta.1
+- Tooltips: a spell pair shows the two icons with a colored left and right arrow between them (new Media/arrow_links_weiss_32x32.tga) instead of "/". The Binds overview tooltip (minimap icon, Titan Panel) lists spell click casts with their spell icon and the pair icons, like the spell tooltips (icons follow the "spell icons" option).
+- The two arrows between the icons now sit side by side (left points to the click cast, right to the second spell) and use the left/right arrows of the game's sliders on Retail, tinted by spell kind; other clients keep the plain arrow.
+- The choice lists (second spell, combat resurrection) show the game's own tooltip for the spell or item under the mouse.
+- Icon boxes are 45x45, the size of an action button, instead of 32x32; rows and the resurrection fields are spaced accordingly.
+- Icon boxes: the spell icons are drawn larger. The icon mask now keeps the proportions it has on a 45x45 action button instead of being squeezed to the 32x32 icon, which had shrunk the visible icon inside the frame.
+
+## 1.2.3-beta.1
+- The 32x32 icon boxes on the Click Casting page use the action button look of Retail (icon frame, round-cornered icon mask, empty-slot art, mouseover and pressed states, the Retail atlases scaled from 45x45). Clients without those atlases keep a plain thin frame; the Forever look is still to do.
+
+## 1.2.2-beta.1
+- Fixed: click casts on the unit frames and in the world stopped working in 1.2.x. The resurrection was moved into extra macro lines; it is back inside the single /cast line as in 1.1.8 (with a combat resurrection set up, the normal one is limited to out of combat and the combat one to combat). Debug output for frame clicks now also shows the held modifier keys.
+- Combat resurrection: dragging does not work in the options window, so the slot's list now also offers items from the bags. They are found by their use effect: items whose effect text mentions resurrecting (English, German, French keywords), no item list is kept. "Show all spells" lists every item with a use effect. Replaces the drag and drop of 1.2.1.
+
+## 1.2.1-beta.1
+- Combat resurrection: engineering items are no longer taken from a built-in item list. Drag an item from the bags onto the slot instead (it counts while it is in the bags); a click still opens the list of the class's combat resurrection spells.
+
+## 1.2.0-beta.1
+- Click Casting page redesigned: the click cast and the second spell are 32x32 icons showing the game's own tooltip on mouseover; an empty second-spell slot shows a plus. Between the icons sit two arrows on top of each other (upper points to the click cast, lower to the second spell), colored by the spell: green friendly, red hostile, blue buff, purple debuff removal (fixed spell list). The page scrolls.
+- Resurrection now tells combat from non-combat: out of combat the normal resurrection, in combat the combat resurrection. The in-combat one is picked from a list of class spells and engineering items in the bags (Convincingly Realistic Jumper Cables, Emergency Soul Link, Disposable Spectrophasic Reanimator, Unstable Temporal Time Shifter, each within its level cap); without a choice the first possible one is used. Replaces the "normal / in combat" check boxes.
+- The resurrection tooltip row follows the combat state and shows item icons too.
+- New icon Media/arrow_weiss_32x32.tga; new concept document documentation/CONCEPT_Bedingungszauber.md (condition spells, not built yet).
+
 ## 1.1.8-latest.1
 - The General page scrolls, so the Developer section is no longer cut off at the bottom of the window.
 - Click cast tooltips show only the two spell icons for a spell pair, without the name of the second spell.

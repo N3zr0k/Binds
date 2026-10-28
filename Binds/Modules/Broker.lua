@@ -27,6 +27,70 @@ local function OpenClickCastSettings()
 	end
 end
 
+-- Same function as the minimap shortcut, unchanged, for the options page.
+function Binds:OpenClickCastSettings()
+	OpenClickCastSettings()
+end
+
+-- From the options page, and from the minimap button, Titan Panel and addon compartment, the settings window is closed first: Blizzard's click casting window is a panel of its own and
+-- does not come up in front of it. A moment later the same function as the minimap shortcut opens it.
+function Binds:OpenClickCastSettingsFromOptions()
+	local closed = false
+	if SettingsPanel and SettingsPanel:IsShown() then
+		-- Blizzard's own close method first (it also ends the panel's transition state), then the generic ways.
+		if SettingsPanel.Close then
+			pcall(SettingsPanel.Close, SettingsPanel, true)
+		end
+		if SettingsPanel:IsShown() then
+			pcall(HideUIPanel, SettingsPanel)
+		end
+		if SettingsPanel:IsShown() then
+			SettingsPanel:Hide()
+		end
+		closed = true
+	end
+	if InterfaceOptionsFrame and InterfaceOptionsFrame:IsShown() then
+		InterfaceOptionsFrame:Hide()
+		closed = true
+	end
+	if GameMenuFrame and GameMenuFrame:IsShown() then
+		pcall(HideUIPanel, GameMenuFrame)
+		closed = true
+	end
+	Binds:Debug("click settings: closed windows = " .. tostring(closed))
+	-- Opens only while the window is not up (the game's function toggles), and tries once more if the first try
+	-- did not bring it up, e.g. because the settings window was still closing.
+	local function Open(retry)
+		if ClickBindingFrame and ClickBindingFrame:IsVisible() then
+			return
+		end
+		OpenClickCastSettings()
+		if retry and C_Timer and C_Timer.After then
+			C_Timer.After(0.4, function()
+				if not (ClickBindingFrame and ClickBindingFrame:IsVisible()) then
+					Binds:Debug("click settings: second try")
+					OpenClickCastSettings()
+					-- Still not up: say what the game offers, so the cause can be found.
+					C_Timer.After(0.4, function()
+						if not (ClickBindingFrame and ClickBindingFrame:IsVisible()) then
+							Binds:Print(L.CLICK_SETTINGS_FAILED:format(tostring(ToggleClickBindingFrame ~= nil),
+								tostring(ClickBindingFrame ~= nil),
+								tostring(not (SettingsPanel and SettingsPanel:IsShown()))))
+						end
+					end)
+				end
+			end)
+		end
+	end
+	if closed and C_Timer and C_Timer.After then
+		C_Timer.After(0.3, function()
+			Open(true)
+		end)
+	else
+		Open(true)
+	end
+end
+
 local function OpenKeyBindings()
 	if Settings and Settings.OpenToCategory and Settings.KEYBINDINGS_CATEGORY_ID then
 		Settings.OpenToCategory(Settings.KEYBINDINGS_CATEGORY_ID)
@@ -41,6 +105,7 @@ local function OpenKeyBindings()
 end
 
 local function HandleClick(button)
+	Binds:Debug("click: button = %s, shift = %s, combat = %s", tostring(button), tostring(IsShiftKeyDown()), tostring(InCombatLockdown()))
 	if InCombatLockdown() then
 		Binds:Print(L.COMBAT_LOCKED)
 		return
@@ -49,7 +114,7 @@ local function HandleClick(button)
 		if button == "RightButton" then
 			OpenKeyBindings()
 		else
-			OpenClickCastSettings()
+			Binds:OpenClickCastSettingsFromOptions()
 		end
 	elseif button == "RightButton" then
 		Binds:OpenOptions()
@@ -126,8 +191,18 @@ local function FillTooltip(tooltip)
 		local color = Binds.categoryColors.click
 		local light = Binds.categoryLightColors.click
 		local icon = Binds:Texture("mouse-pointer-click_weiss_32x32", 0, color) .. " "
+		local clickSpells = Binds:GetModule("ClickSpells")
+		local showSpellIcons = Binds.db.clicks.icons and clickSpells
 		for _, cast in ipairs(casts) do
-			tooltip:AddDoubleLine(icon .. cast.name, cast.binding, color.r, color.g, color.b, light.r, light.g, light.b)
+			local left
+			if showSpellIcons and cast.spellID and cast.second then
+				left = clickSpells:PairString(cast.spellID, cast.second) .. " " .. cast.name
+			elseif showSpellIcons and cast.spellID then
+				left = clickSpells:IconString(cast.spellID) .. cast.name
+			else
+				left = icon .. cast.name
+			end
+			tooltip:AddDoubleLine(left, cast.binding, color.r, color.g, color.b, light.r, light.g, light.b)
 		end
 	end
 end

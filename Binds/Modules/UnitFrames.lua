@@ -53,7 +53,8 @@ local function LogClick(frame, button)
 	end
 	local ok, kind = pcall(SecureButton_GetModifiedAttribute, frame, "type", button)
 	local _, text = pcall(SecureButton_GetModifiedAttribute, frame, "macrotext", button)
-	Binds:Debug("frame click %s button=%s type=%s mouseover=%s macro=%s", tostring(frame:GetName()), tostring(button),
+	Binds:Debug("frame click %s button=%s mods=%s%s%s type=%s mouseover=%s macro=%s", tostring(frame:GetName()), tostring(button),
+		IsShiftKeyDown() and "S" or "-", IsControlKeyDown() and "C" or "-", IsAltKeyDown() and "A" or "-",
 		tostring(ok and kind), tostring(UnitExists("mouseover")), type(text) == "string" and (text:gsub("\n", " | ")) or "-")
 end
 

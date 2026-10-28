@@ -90,6 +90,7 @@ end
 
 -- Inline texture for tooltips and font strings. Size 0 follows the font height.
 local MEDIA = "Interface\\AddOns\\Binds\\Media\\"
+Binds.mediaPath = MEDIA
 
 function Binds:Texture(file, size, color)
 	size = size or 0
@@ -204,10 +205,12 @@ end
 
 Binds.defaults = {
 	showInTooltip = true,
+	-- Grey explanation texts under the options; off, they show as a tooltip on the option instead.
+	showDescriptions = true,
 	-- Unit tooltips list the click casts usable on that friendly unit.
 	unitClickCasts = true,
 	-- Optional: Blizzard click casts with a modifier also act as mouseover casts on units in the world.
-	mouseoverCasts = false,
+	mouseoverCasts = true,
 	-- Extras for click casts; they ride on the mouseover module and only take effect while mouseoverCasts is on.
 	clicks = {
 		-- Spell icons next to click casts in tooltips.
@@ -221,7 +224,7 @@ Binds.defaults = {
 		resurrect = false,
 		-- Carry second spell and resurrection over to Blizzard's unit frames.
 		unitFrames = true,
-		resurrectMode = "normal",
+		-- combatRez ("spell:ID" / "item:ID") is unset until chosen; nothing chosen means the first possible one.
 	},
 	-- Which category rows the tooltip section shows.
 	categories = {

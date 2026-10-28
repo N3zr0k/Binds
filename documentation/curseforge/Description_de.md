@@ -28,12 +28,14 @@ Binds **liest** deine Belegungen nur. Tastenbelegungen, Makros und Aktionsleiste
 | **Zweiter Zauber** | Optional: zu jedem Klickzauber mit Modifikator ein Gegenstück (Heilung ↔ Schaden), das auf Feinde bzw. Freunde wirkt, auf denselben Tasten. Auswahl per Liste; zwei Zauber derselben Art bleiben ausgegraut und inaktiv (mit Warnhinweis, auf Wunsch aus der Liste ausgeblendet) |
 | **Einheitenfenster** | Optional: Zweitzauber und Wiederbelebung wirken auch auf Blizzards Spieler-, Ziel-, Fokus-, Gruppen- und Schlachtzugsfenstern |
 | **Zauber-Symbole** | Im Klickzauber-Tooltip zeigt Binds die Symbole beider Zauber (abschaltbar) |
-| **Wiederbelebung** | Optional: jeder Klickzauber mit Modifikator belebt einen toten Gruppenspieler; nur, wenn deine Klasse es kann |
+| **Wiederbelebung** | Optional: jeder Klickzauber mit Modifikator belebt einen toten Gruppenspieler: außerhalb des Kampfes normal, im Kampf mit Kampf-Wiederbelebung oder einem Ingenieurs-Gegenstand (Auswahl aus den Taschen) |
+| **Übersichtliche Seite** | Klickzauber und zweiter Zauber als 45x45-Symbole mit Originaltooltip; Pfeile in Farbe der Zauberart (grün Freund, rot Feind, blau Buff, lila Entfernen) |
 
 ### Schnellzugriff
 
 Binds sitzt im **Titan Panel**, an der **Minimap** und im **Addon-Compartment**.
 
+- **Sicherung:** Export und Import der Binds-Einstellungen als Text, für den Account oder den aktuellen Charakter (zweite Zauber, Kampf-Wiederbelebung, optional Blizzards Klickzauber-Belegung).
 - **Rechtsklick:** Binds-Optionen
 - **Umschalt + Linksklick:** Klickzauber-Einstellungen
 - **Umschalt + Rechtsklick:** Tastaturbelegung

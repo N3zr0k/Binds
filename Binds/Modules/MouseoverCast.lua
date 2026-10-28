@@ -34,10 +34,31 @@ local GUARD = "/stopmacro [@mouseover,noexists]\n"
 -- Resurrection only for dead members of the player's group; "party" and "raid" are separate conditions.
 local REZ_TARGETS = { "@mouseover,help,dead,party", "@mouseover,help,dead,raid" }
 
-local function RezOptions(rezName)
+-- The resurrection options of a /cast line (first matching option wins), or an empty list. Without a combat
+-- resurrection the normal one is tried as before; with one, the normal is limited to out of combat and the combat one
+-- (spell name or item) to combat. /cast takes items as well as spells.
+local function RezOptions()
+	local clickSpells = Binds:GetModule("ClickSpells")
 	local options = {}
-	for _, target in ipairs(REZ_TARGETS) do
-		table.insert(options, "[" .. target .. "] " .. rezName)
+	if not clickSpells:HasResurrection() then
+		return options
+	end
+	local normal = clickSpells:GetNormalResurrection()
+	local normalName = normal and GetSpellName(normal)
+	local combat = clickSpells:GetCombatResurrection()
+	local combatName
+	if combat then
+		combatName = combat.kind == "item" and ("item:" .. combat.id) or GetSpellName(combat.id)
+	end
+	if normalName then
+		for _, target in ipairs(REZ_TARGETS) do
+			table.insert(options, "[" .. target .. (combatName and ",nocombat" or "") .. "] " .. normalName)
+		end
+	end
+	if combatName then
+		for _, target in ipairs(REZ_TARGETS) do
+			table.insert(options, "[" .. target .. (normalName and ",combat" or "") .. "] " .. combatName)
+		end
 	end
 	return options
 end
@@ -49,11 +70,7 @@ local function SpellMacro(spellID)
 		return nil
 	end
 	local clickSpells = Binds:GetModule("ClickSpells")
-	local options = {}
-	local _, rezName = clickSpells:GetResurrection()
-	if rezName then
-		options = RezOptions(rezName)
-	end
+	local options = RezOptions()
 	local second = clickSpells:GetSecond(spellID)
 	local secondName = second and GetSpellName(second)
 	if secondName then
@@ -73,11 +90,11 @@ local function UserMacro(macroID)
 	if not body then
 		return nil
 	end
-	local _, rezName = Binds:GetModule("ClickSpells"):GetResurrection()
-	if not rezName then
+	local options = RezOptions()
+	if #options == 0 then
 		return GUARD .. body
 	end
-	local lines = { "/cast " .. table.concat(RezOptions(rezName), "; ") }
+	local lines = { "/cast " .. table.concat(options, "; ") }
 	for _, target in ipairs(REZ_TARGETS) do
 		table.insert(lines, "/stopmacro [" .. target .. "]")
 	end
@@ -99,7 +116,7 @@ end
 -- take over click casts that need it.
 function MouseoverCast:GetExtraMacro(entry)
 	local clickSpells = Binds:GetModule("ClickSpells")
-	local hasResurrection = clickSpells:GetResurrection() ~= nil
+	local hasResurrection = clickSpells:HasResurrection()
 	if entry.type == TYPE.Spell then
 		if not (hasResurrection or clickSpells:GetSecond(entry.actionID)) then
 			return nil

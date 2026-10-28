@@ -6,5 +6,6 @@
 	<Script file="MouseoverCast.lua"/>
 	<Script file="UnitFrames.lua"/>
 	<Script file="AddonList.lua"/>
+	<Script file="Backup.lua"/>
 	<Script file="Probes.lua"/>
 </Ui>

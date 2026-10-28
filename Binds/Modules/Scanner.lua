@@ -416,6 +416,31 @@ local function ClickBindingText(info)
 	return JoinModifiers(ClickModifiers(info.modifiers), text)
 end
 
+-- Button order within one modifier group.
+local BUTTON_ORDER = { LeftButton = 1, RightButton = 2, MiddleButton = 3, Button4 = 4, Button5 = 5 }
+
+-- The click casting profile in display order: no modifier first, then Shift, Ctrl, Alt, then the combinations;
+-- within a group Left, Right, Middle, Button 4, Button 5.
+local function SortedProfile()
+	local list = {}
+	for index, info in ipairs(C_ClickBindings.GetProfileInfo() or {}) do
+		local modifiers = ClickModifiers(info.modifiers)
+		local count = (modifiers.SHIFT and 1 or 0) + (modifiers.CTRL and 1 or 0) + (modifiers.ALT and 1 or 0)
+		local rank = count * 10 + (modifiers.SHIFT and 1 or 0) + (modifiers.CTRL and 2 or 0) + (modifiers.ALT and 4 or 0)
+		table.insert(list, { info = info, rank = rank * 10 + (BUTTON_ORDER[Clean(info.button)] or 9), index = index })
+	end
+	table.sort(list, function(a, b)
+		if a.rank ~= b.rank then
+			return a.rank < b.rank
+		end
+		return a.index < b.index
+	end)
+	for index, item in ipairs(list) do
+		list[index] = item.info
+	end
+	return list
+end
+
 local function ClickActionName(info)
 	local id = info.actionID
 	if info.type == TYPE.Interaction then
@@ -445,8 +470,12 @@ function Scanner:GetClickCasts()
 	if not self:IsClickCastingAvailable() then
 		return casts
 	end
-	for _, info in ipairs(C_ClickBindings.GetProfileInfo() or {}) do
-		table.insert(casts, { binding = ClickBindingText(info), name = ClickActionName(info) })
+	for _, info in ipairs(SortedProfile()) do
+		local spellID = Clean(info.type) == TYPE.Spell and Clean(info.actionID) or nil
+		local clickSpells = Binds:GetModule("ClickSpells")
+		-- The second spell only exists for clicks with a modifier.
+		local second = spellID and clickSpells and next(ClickModifiers(info.modifiers)) and clickSpells:GetSecond(spellID) or nil
+		table.insert(casts, { binding = ClickBindingText(info), name = ClickActionName(info), spellID = spellID, second = second })
 	end
 	return casts
 end
@@ -514,7 +543,7 @@ function Scanner:GetFriendlyClickCasts()
 	if not self:IsClickCastingAvailable() then
 		return casts
 	end
-	for _, info in ipairs(C_ClickBindings.GetProfileInfo() or {}) do
+	for _, info in ipairs(SortedProfile()) do
 		local kind, id = Clean(info.type), Clean(info.actionID)
 		local spellID
 		if kind == TYPE.Spell then
@@ -536,7 +565,7 @@ function Scanner:GetModifierSpellClicks()
 	if not self:IsClickCastingAvailable() then
 		return clicks
 	end
-	for _, info in ipairs(C_ClickBindings.GetProfileInfo() or {}) do
+	for _, info in ipairs(SortedProfile()) do
 		local spellID = Clean(info.actionID)
 		if Clean(info.type) == TYPE.Spell and spellID and next(ClickModifiers(info.modifiers)) then
 			table.insert(clicks, { binding = ClickBindingText(info), spellID = spellID })
@@ -567,7 +596,7 @@ function Scanner:CollectClickBindings(result)
 		return
 	end
 	local clickSpells = Binds:GetModule("ClickSpells")
-	for _, info in ipairs(C_ClickBindings.GetProfileInfo() or {}) do
+	for _, info in ipairs(SortedProfile()) do
 		if Clean(info.type) == TYPE.Spell then
 			local spellID, text = Clean(info.actionID), ClickBindingText(info)
 			Add(result, "spell", spellID, "click", text)

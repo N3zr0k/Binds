@@ -12,9 +12,9 @@
 
 **Binds** zeigt dir direkt im Tooltip, wie du einen Zauber, Gegenstand oder ein Makro auslöst: über welche Taste, welche Maustaste oder welche Klickzauber-Kombination. Kein Suchen mehr in Aktionsleisten, Makrofenster oder Tastaturbelegung.
 
-Binds **liest** Belegungen nur aus dem Spiel und **ändert** nichts: keine Tastenbelegungen, keine Makros, keine Aktionsleisten. Einzige Ausnahme ist die optionale Mouseover-Funktion für Klickzauber (standardmäßig aus, siehe unten).
+Binds **liest** Belegungen nur aus dem Spiel und **ändert** nichts: keine Tastenbelegungen, keine Makros, keine Aktionsleisten. Einzige Ausnahme ist die Mouseover-Funktion für Klickzauber (standardmäßig an, abschaltbar, siehe unten).
 
-> Status: `1.1.8-latest.1` – stabile Version (Stufe latest) mit den neuen Klickzauber-Funktionen. Belegungen werden aus Aktionsleisten, Haltungsleiste, direkt belegten Makros und Klickzaubern gelesen; Ingame-Test läuft.
+> Status: `1.2.23-beta.1` – Beta, neue Seite „Sicherung“ (Export/Import), neue Optik der Klickzauber-Seite und Kampf-Wiederbelebung. Belegungen werden aus Aktionsleisten, Haltungsleiste, direkt belegten Makros und Klickzaubern gelesen; Ingame-Test läuft.
 
 ## Funktionen
 
@@ -23,13 +23,14 @@ Binds **liest** Belegungen nur aus dem Spiel und **ändert** nichts: keine Taste
   - Tastatur (z. B. `UMSCHALT + 1`)
   - Maus (z. B. `STRG + Maustaste 4`; Maus mit Modifikator bleibt Maus)
   - Klickzauber (Blizzards integriertes Click-Casting)
+- **Sicherung:** Export und Import der Binds-Einstellungen als Text, für den Account oder den aktuellen Charakter (zweite Zauber, Kampf-Wiederbelebung, optional Blizzards Klickzauber-Belegung).
 - **Datenquellen:** Aktionsleisten, Gestalt-/Haltungsleiste, direkt belegte Makros, Blizzard-Klickzauber. Kein weiteres Addon nötig.
 - **Klickzauber im Einheiten-Tooltip:** Auf freundlichen Einheiten, z. B. Spielerframes, listet der Tooltip die Klickzauber, die du dort wirken kannst (Heilungen, Entzauberungen). Es erscheinen alle passenden Klickzauber; der optionale Modifikator-Filter entscheidet wie bei den anderen Tooltips, ob etwas angezeigt wird. Abschaltbar in den Optionen.
 - **Automatische Aktualisierung**, sobald sich Belegungen, Makros, Leisten oder die Gestalt ändern.
 - **Optionaler Modifikator-Filter:** Abschnitt nur anzeigen, solange Umschalt, Strg und/oder Alt gedrückt ist.
-- **Optional: Mouseover-Zauber in der Spielwelt** (standardmäßig aus): Blizzard-Klickzauber mit Modifikator, z. B. Umschalt + Rechtsklick, wirken auch auf Einheiten in der Spielwelt. Das Click-Casting-Profil selbst bleibt unverändert, einfache Klicks bleiben unberührt, Änderungen greifen außerhalb des Kampfes.
-- **Optional: Zweiter Zauber** (Seite *Klickzauber*, setzt Mouseover-Zauber voraus): Zu jedem Klickzauber mit Modifikator legst du ein Gegenstück fest, indem du ihn aus einer Liste der einsetzbaren Zauber deines Zauberbuchs wählst: zu einem Heilzauber ein Schadenszauber, zu einem Schadenszauber ein Heilzauber, zwei Zauber derselben Art sind wählbar, aber ausgegraut und inaktiv, mit Warnsymbol und Hinweistext (die Liste blendet sie standardmäßig aus; *Alle Zauber anzeigen* zeigt sie). Der zweite Zauber wirkt nur auf Feinde bzw. Freunde, auf derselben Tastenkombination. Im Tooltip stehen beide Symbole, ohne Namen des zweiten Zaubers.
-- **Optional: Wiederbelebung** (Seite *Klickzauber*): Ist das Ziel ein toter Spieler deiner Gruppe oder deines Schlachtzugs, wirkt jeder Klickzauber mit Modifikator stattdessen die Wiederbelebung (normal oder Im Kampf). Die Option erscheint nur, wenn deine Klasse eine Wiederbelebung hat.
+- **Mouseover-Zauber in der Spielwelt** (standardmäßig an, Hauptschalter für alle zusätzlichen Klickzauber-Funktionen): Blizzard-Klickzauber mit Modifikator, z. B. Umschalt + Rechtsklick, wirken auch auf Einheiten in der Spielwelt. Das Click-Casting-Profil selbst bleibt unverändert, einfache Klicks bleiben unberührt, Änderungen greifen außerhalb des Kampfes.
+- **Optional: Zweiter Zauber** (Seite *Klickzauber*, setzt Mouseover-Zauber voraus): Zu jedem Klickzauber mit Modifikator legst du ein Gegenstück fest, indem du ihn aus einer Liste der einsetzbaren Zauber deines Zauberbuchs wählst: zu einem Heilzauber ein Schadenszauber, zu einem Schadenszauber ein Heilzauber, zwei Zauber derselben Art sind wählbar, aber ausgegraut und inaktiv, mit Warnsymbol und Hinweistext (die Liste blendet sie standardmäßig aus; *Alle Zauber anzeigen* zeigt sie). Der zweite Zauber wirkt nur auf Feinde bzw. Freunde, auf derselben Tastenkombination. Im Tooltip stehen beide Symbole, ohne Namen des zweiten Zaubers. Die Seite zeigt jede Zeile mit 45x45-Symbolen (Klickzauber, zweiter Zauber) samt dem Originaltooltip des Spiels und zwei Pfeilen nebeneinander dazwischen; ihre Farbe zeigt die Art des Zaubers: grün Freund, rot Feind, blau Buff, lila Entfernen eines Debuffs (Letzteres nach einer festen Zauberliste).
+- **Optional: Wiederbelebung** (Seite *Klickzauber*): Ist das Ziel ein toter Spieler deiner Gruppe oder deines Schlachtzugs, wirkt jeder Klickzauber mit Modifikator stattdessen die Wiederbelebung: außerhalb des Kampfes die normale, im Kampf die Kampf-Wiederbelebung. Für den Kampf wählst du per Klick einen Zauber deiner Klasse oder einen Ingenieurs-Gegenstand (z. B. Überbrückungskabel) aus deinen Taschen; Binds erkennt solche Gegenstände am Text ihres Benutzen-Effekts (Wiederbeleben), mit *Alle Zauber anzeigen* erscheinen alle Gegenstände mit Benutzen-Effekt. Ohne Auswahl nimmt Binds den ersten Klassenzauber. Eine Gegenstandsliste pflegt Binds nicht.
 - **Titan Panel, Minimap-Symbol und Addon-Compartment:**
   - Rechtsklick: Binds-Optionen
   - Umschalt + Linksklick: Klickzauber-Einstellungen
